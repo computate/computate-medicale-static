@@ -1792,11 +1792,47 @@ function suggereInscriptionMedicaleObjetSuggere($formulaireFiltres, $list) {
 	rechercherInscriptionMedicaleVals($formulaireFiltres, success, error);
 }
 
+function suggereInscriptionMedicaleCliniqueCle(filtres, $list, pk = null, attribuer=true) {
+	success = function( data, textStatus, jQxhr ) {
+		$list.empty();
+		$.each(data['list'], function(i, o) {
+			var $i = $('<i>').attr('class', 'fa fa-clinic ');
+			var $span = $('<span>').attr('class', '').text(o['cliniqueNomComplet']);
+			var $a = $('<a>').attr('id', o['pk']).attr('href', o['pageUrlPk'] + '#' + pk);
+			$a.append($i);
+			$a.append($span);
+			var val = o['inscriptionCles'];
+			var checked = pk == null ? false : Array.isArray(val) ? val.includes(pk.toString()) : val == pk;
+			var $input = $('<input>');
+			$input.attr('id', 'GET_cliniqueCle_' + pk + '_inscriptionCles_' + o['pk']);
+			$input.attr('value', o['pk']);
+			$input.attr('class', 'valeurCliniqueCle w3-check ');
+			if(pk != null) {
+				$input.attr('onchange', "var $input = $('#GET_cliniqueCle_" + pk + "_inscriptionCles_" + o['pk'] + "'); patchInscriptionMedicaleVals([{ name: 'fq', value: 'pk:" + pk + "' }], { [($input.prop('checked') ? 'set' : 'remove') + 'CliniqueCle']: \"" + o['pk'] + "\" } ); ");
+				$input.attr('onclick', 'enleverLueur($(this)); ');
+			}
+			$input.attr('type', 'checkbox');
+			if(checked)
+				$input.attr('checked', 'checked');
+			var $li = $('<li>');
+			if(attribuer)
+				$li.append($input);
+			$li.append($a);
+			$list.append($li);
+		});
+		var focusId = $('#InscriptionMedicaleForm :input[name="focusId"]').val();
+		if(focusId)
+			$('#' + focusId).parent().next().find('input').focus();
+	};
+	error = function( jqXhr, textStatus, errorThrown ) {};
+	rechercheCliniqueMedicaleVals(filtres, success, error);
+}
+
 function suggereInscriptionMedicalePatientCle(filtres, $list, pk = null, attribuer=true) {
 	success = function( data, textStatus, jQxhr ) {
 		$list.empty();
 		$.each(data['list'], function(i, o) {
-			var $i = $('<i>').attr('class', 'fa fa-hostpital-user ');
+			var $i = $('<i>').attr('class', 'fa fa-hospital-user ');
 			var $span = $('<span>').attr('class', '').text(o['patientNomComplet']);
 			var $a = $('<a>').attr('id', o['pk']).attr('href', o['pageUrlPk'] + '#' + pk);
 			$a.append($i);
@@ -2216,11 +2252,47 @@ function suggereInscriptionMedicaleObjetSuggere($formulaireFiltres, $list) {
 	rechercherInscriptionMedicaleVals($formulaireFiltres, success, error);
 }
 
+function suggereInscriptionMedicaleCliniqueCle(filtres, $list, pk = null, attribuer=true) {
+	success = function( data, textStatus, jQxhr ) {
+		$list.empty();
+		$.each(data['list'], function(i, o) {
+			var $i = $('<i>').attr('class', 'fa fa-clinic ');
+			var $span = $('<span>').attr('class', '').text(o['cliniqueNomComplet']);
+			var $a = $('<a>').attr('id', o['pk']).attr('href', o['pageUrlPk'] + '#' + pk);
+			$a.append($i);
+			$a.append($span);
+			var val = o['inscriptionCles'];
+			var checked = pk == null ? false : Array.isArray(val) ? val.includes(pk.toString()) : val == pk;
+			var $input = $('<input>');
+			$input.attr('id', 'GET_cliniqueCle_' + pk + '_inscriptionCles_' + o['pk']);
+			$input.attr('value', o['pk']);
+			$input.attr('class', 'valeurCliniqueCle w3-check ');
+			if(pk != null) {
+				$input.attr('onchange', "var $input = $('#GET_cliniqueCle_" + pk + "_inscriptionCles_" + o['pk'] + "'); patchInscriptionMedicaleVals([{ name: 'fq', value: 'pk:" + pk + "' }], { [($input.prop('checked') ? 'set' : 'remove') + 'CliniqueCle']: \"" + o['pk'] + "\" } ); ");
+				$input.attr('onclick', 'enleverLueur($(this)); ');
+			}
+			$input.attr('type', 'checkbox');
+			if(checked)
+				$input.attr('checked', 'checked');
+			var $li = $('<li>');
+			if(attribuer)
+				$li.append($input);
+			$li.append($a);
+			$list.append($li);
+		});
+		var focusId = $('#InscriptionMedicaleForm :input[name="focusId"]').val();
+		if(focusId)
+			$('#' + focusId).parent().next().find('input').focus();
+	};
+	error = function( jqXhr, textStatus, errorThrown ) {};
+	rechercheCliniqueMedicaleVals(filtres, success, error);
+}
+
 function suggereInscriptionMedicalePatientCle(filtres, $list, pk = null, attribuer=true) {
 	success = function( data, textStatus, jQxhr ) {
 		$list.empty();
 		$.each(data['list'], function(i, o) {
-			var $i = $('<i>').attr('class', 'fa fa-hostpital-user ');
+			var $i = $('<i>').attr('class', 'fa fa-hospital-user ');
 			var $span = $('<span>').attr('class', '').text(o['patientNomComplet']);
 			var $a = $('<a>').attr('id', o['pk']).attr('href', o['pageUrlPk'] + '#' + pk);
 			$a.append($i);
@@ -3250,7 +3322,7 @@ async function websocketInscriptionMedicale(success) {
 			var percent = Math.floor( numPATCH / numFound * 100 ) + '%';
 			var $box = $('<div>').attr('class', 'w3-display-topright w3-quarter box-' + id + ' ').attr('id', 'box-' + id);
 			var $margin = $('<div>').attr('class', 'w3-margin ').attr('id', 'margin-' + id);
-			var $card = $('<div>').attr('class', 'w3-card ').attr('id', 'card-' + id);
+			var $card = $('<div>').attr('class', 'w3-card w3-white ').attr('id', 'card-' + id);
 			var $header = $('<div>').attr('class', 'w3-container fa-blue-gray ').attr('id', 'header-' + id);
 			var $i = $('<i>').attr('class', 'fas fa-notes-medical w3-margin-right ').attr('id', 'icon-' + id);
 			var $headerSpan = $('<span>').attr('class', '').text('modifier inscriptions');
@@ -3274,6 +3346,13 @@ async function websocketInscriptionMedicale(success) {
 					success(json);
 		});
 
+		window.eventBus.registerHandler('websocketCliniqueMedicale', function (error, message) {
+			$('#Page_cliniqueCle').trigger('oninput');
+			$('#Page_cliniqueCle_ajouter').text('ajouter une école');
+			$('#Page_cliniqueCle_ajouter').removeClass('w3-disabled');
+			$('#Page_cliniqueCle_ajouter').attr('disabled', false);
+		});
+
 		window.eventBus.registerHandler('websocketPatientMedicale', function (error, message) {
 			$('#Page_patientCle').trigger('oninput');
 			$('#Page_patientCle_ajouter').text('ajouter un patient');
@@ -3286,6 +3365,13 @@ async function websocketInscriptionMedicale(success) {
 			$('#Page_utilisateurCles_ajouter').text('ajouter un utilisateur du site');
 			$('#Page_utilisateurCles_ajouter').removeClass('w3-disabled');
 			$('#Page_utilisateurCles_ajouter').attr('disabled', false);
+		});
+
+		window.eventBus.registerHandler('websocketCliniqueMedicale', function (error, message) {
+			$('#Page_cliniqueCle').trigger('oninput');
+			$('#Page_cliniqueCle_ajouter').text('ajouter une école');
+			$('#Page_cliniqueCle_ajouter').removeClass('w3-disabled');
+			$('#Page_cliniqueCle_ajouter').attr('disabled', false);
 		});
 
 		window.eventBus.registerHandler('websocketPatientMedicale', function (error, message) {
@@ -3541,6 +3627,18 @@ async function websocketInscriptionMedicaleInner(requeteApi) {
 				});
 				ajouterLueur($('.inputInscriptionMedicale' + pk + 'UtilisateurCle'));
 			}
+			var val = o['cliniqueCle'];
+			if(vars.includes('cliniqueCle')) {
+				$('.inputInscriptionMedicale' + pk + 'CliniqueCle').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varInscriptionMedicale' + pk + 'CliniqueCle').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputInscriptionMedicale' + pk + 'CliniqueCle'));
+			}
 			var val = o['patientNomComplet'];
 			if(vars.includes('patientNomComplet')) {
 				$('.inputInscriptionMedicale' + pk + 'PatientNomComplet').each(function() {
@@ -3608,6 +3706,13 @@ async function websocketInscriptionMedicaleInner(requeteApi) {
 			}
 			var val = o['inscriptionSignature1'];
 			if(vars.includes('inscriptionSignature1')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature1').each(function() {
+					if(val !== $('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature1').attr('src'))
+						$('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature1').attr('src', val == null ? 'data:image/png;base64,' : val);
+					ajouterLueur($('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature1'));
+				});
 				$('.inputInscriptionMedicale' + pk + 'InscriptionSignature1').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3620,6 +3725,13 @@ async function websocketInscriptionMedicaleInner(requeteApi) {
 			}
 			var val = o['inscriptionSignature2'];
 			if(vars.includes('inscriptionSignature2')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature2').each(function() {
+					if(val !== $('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature2').attr('src'))
+						$('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature2').attr('src', val == null ? 'data:image/png;base64,' : val);
+					ajouterLueur($('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature2'));
+				});
 				$('.inputInscriptionMedicale' + pk + 'InscriptionSignature2').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3632,6 +3744,13 @@ async function websocketInscriptionMedicaleInner(requeteApi) {
 			}
 			var val = o['inscriptionSignature3'];
 			if(vars.includes('inscriptionSignature3')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature3').each(function() {
+					if(val !== $('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature3').attr('src'))
+						$('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature3').attr('src', val == null ? 'data:image/png;base64,' : val);
+					ajouterLueur($('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature3'));
+				});
 				$('.inputInscriptionMedicale' + pk + 'InscriptionSignature3').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3644,6 +3763,13 @@ async function websocketInscriptionMedicaleInner(requeteApi) {
 			}
 			var val = o['inscriptionSignature4'];
 			if(vars.includes('inscriptionSignature4')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature4').each(function() {
+					if(val !== $('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature4').attr('src'))
+						$('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature4').attr('src', val == null ? 'data:image/png;base64,' : val);
+					ajouterLueur($('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature4'));
+				});
 				$('.inputInscriptionMedicale' + pk + 'InscriptionSignature4').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3656,6 +3782,13 @@ async function websocketInscriptionMedicaleInner(requeteApi) {
 			}
 			var val = o['inscriptionSignature5'];
 			if(vars.includes('inscriptionSignature5')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature5').each(function() {
+					if(val !== $('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature5').attr('src'))
+						$('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature5').attr('src', val == null ? 'data:image/png;base64,' : val);
+					ajouterLueur($('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature5'));
+				});
 				$('.inputInscriptionMedicale' + pk + 'InscriptionSignature5').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3668,6 +3801,13 @@ async function websocketInscriptionMedicaleInner(requeteApi) {
 			}
 			var val = o['inscriptionSignature6'];
 			if(vars.includes('inscriptionSignature6')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature6').each(function() {
+					if(val !== $('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature6').attr('src'))
+						$('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature6').attr('src', val == null ? 'data:image/png;base64,' : val);
+					ajouterLueur($('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature6'));
+				});
 				$('.inputInscriptionMedicale' + pk + 'InscriptionSignature6').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3680,6 +3820,13 @@ async function websocketInscriptionMedicaleInner(requeteApi) {
 			}
 			var val = o['inscriptionSignature7'];
 			if(vars.includes('inscriptionSignature7')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature7').each(function() {
+					if(val !== $('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature7').attr('src'))
+						$('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature7').attr('src', val == null ? 'data:image/png;base64,' : val);
+					ajouterLueur($('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature7'));
+				});
 				$('.inputInscriptionMedicale' + pk + 'InscriptionSignature7').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3692,6 +3839,13 @@ async function websocketInscriptionMedicaleInner(requeteApi) {
 			}
 			var val = o['inscriptionSignature8'];
 			if(vars.includes('inscriptionSignature8')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature8').each(function() {
+					if(val !== $('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature8').attr('src'))
+						$('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature8').attr('src', val == null ? 'data:image/png;base64,' : val);
+					ajouterLueur($('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature8'));
+				});
 				$('.inputInscriptionMedicale' + pk + 'InscriptionSignature8').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3704,6 +3858,13 @@ async function websocketInscriptionMedicaleInner(requeteApi) {
 			}
 			var val = o['inscriptionSignature9'];
 			if(vars.includes('inscriptionSignature9')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature9').each(function() {
+					if(val !== $('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature9').attr('src'))
+						$('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature9').attr('src', val == null ? 'data:image/png;base64,' : val);
+					ajouterLueur($('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature9'));
+				});
 				$('.inputInscriptionMedicale' + pk + 'InscriptionSignature9').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3716,6 +3877,13 @@ async function websocketInscriptionMedicaleInner(requeteApi) {
 			}
 			var val = o['inscriptionSignature10'];
 			if(vars.includes('inscriptionSignature10')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature10').each(function() {
+					if(val !== $('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature10').attr('src'))
+						$('.signatureImgInscriptionMedicale' + pk + 'InscriptionSignature10').attr('src', val == null ? 'data:image/png;base64,' : val);
+					ajouterLueur($('.signatureInputInscriptionMedicale' + pk + 'InscriptionSignature10'));
+				});
 				$('.inputInscriptionMedicale' + pk + 'InscriptionSignature10').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);

@@ -53,6 +53,10 @@ async function postCliniqueMedicale($formulaireValeurs, success, error) {
 	if(valeurCliniqueAdministrateurNom != null && valeurCliniqueAdministrateurNom !== '')
 		vals['cliniqueAdministrateurNom'] = valeurCliniqueAdministrateurNom;
 
+	var valeurCliniqueMail = $formulaireValeurs.find('.valeurCliniqueMail').val();
+	if(valeurCliniqueMail != null && valeurCliniqueMail !== '')
+		vals['cliniqueMail'] = valeurCliniqueMail;
+
 	var valeurCliniqueMailDe = $formulaireValeurs.find('.valeurCliniqueMailDe').val();
 	if(valeurCliniqueMailDe != null && valeurCliniqueMailDe !== '')
 		vals['cliniqueMailDe'] = valeurCliniqueMailDe;
@@ -69,9 +73,12 @@ async function postCliniqueMedicale($formulaireValeurs, success, error) {
 	if(valeurCliniqueAddresse != null && valeurCliniqueAddresse !== '')
 		vals['cliniqueAddresse'] = valeurCliniqueAddresse;
 
-	var valeurAnneeCles = $formulaireValeurs.find('.valeurAnneeCles').val();
-	if(valeurAnneeCles != null && valeurAnneeCles !== '')
-		vals['anneeCles'] = valeurAnneeCles;
+	var valeurInscriptionCles = [];
+	$formulaireValeurs.find('input.valeurInscriptionCles:checked').each(function(index) {
+		valeurInscriptionCles.push($(this).val());
+	});
+	if(valeurInscriptionCles.length > 0)
+		vals['inscriptionCles'] = valeurInscriptionCles;
 
 	var valeurInheritPk = $formulaireValeurs.find('.valeurInheritPk').val();
 	if(valeurInheritPk != null && valeurInheritPk !== '')
@@ -248,6 +255,19 @@ async function patchCliniqueMedicale($formulaireFiltres, $formulaireValeurs, pk,
 	if(removeCliniqueAdministrateurNom != null && removeCliniqueAdministrateurNom !== '')
 		vals['removeCliniqueAdministrateurNom'] = removeCliniqueAdministrateurNom;
 
+	var valeurCliniqueMail = $formulaireValeurs.find('.valeurCliniqueMail').val();
+	if(valeurCliniqueMail != null && valeurCliniqueMail !== '')
+	var removeCliniqueMail = $formulaireFiltres.find('.removeCliniqueMail').val() === 'true';
+	var setCliniqueMail = removeCliniqueMail ? null : $formulaireValeurs.find('.setCliniqueMail').val();
+	if(removeCliniqueMail || setCliniqueMail != null && setCliniqueMail !== '')
+		vals['setCliniqueMail'] = setCliniqueMail;
+	var addCliniqueMail = $formulaireValeurs.find('.addCliniqueMail').val();
+	if(addCliniqueMail != null && addCliniqueMail !== '')
+		vals['addCliniqueMail'] = addCliniqueMail;
+	var removeCliniqueMail = $formulaireValeurs.find('.removeCliniqueMail').val();
+	if(removeCliniqueMail != null && removeCliniqueMail !== '')
+		vals['removeCliniqueMail'] = removeCliniqueMail;
+
 	var valeurCliniqueMailDe = $formulaireValeurs.find('.valeurCliniqueMailDe').val();
 	if(valeurCliniqueMailDe != null && valeurCliniqueMailDe !== '')
 	var removeCliniqueMailDe = $formulaireFiltres.find('.removeCliniqueMailDe').val() === 'true';
@@ -300,18 +320,9 @@ async function patchCliniqueMedicale($formulaireFiltres, $formulaireValeurs, pk,
 	if(removeCliniqueAddresse != null && removeCliniqueAddresse !== '')
 		vals['removeCliniqueAddresse'] = removeCliniqueAddresse;
 
-	var valeurAnneeCles = $formulaireValeurs.find('.valeurAnneeCles').val();
-	if(valeurAnneeCles != null && valeurAnneeCles !== '')
-	var removeAnneeCles = $formulaireFiltres.find('.removeAnneeCles').val() === 'true';
-	var setAnneeCles = removeAnneeCles ? null : $formulaireValeurs.find('.setAnneeCles').val();
-	if(removeAnneeCles || setAnneeCles != null && setAnneeCles !== '')
-		vals['setAnneeCles'] = setAnneeCles;
-	var addAnneeCles = $formulaireValeurs.find('.addAnneeCles').val();
-	if(addAnneeCles != null && addAnneeCles !== '')
-		vals['addAnneeCles'] = addAnneeCles;
-	var removeAnneeCles = $formulaireValeurs.find('.removeAnneeCles').val();
-	if(removeAnneeCles != null && removeAnneeCles !== '')
-		vals['removeAnneeCles'] = removeAnneeCles;
+	var valeurInscriptionCles = $formulaireValeurs.find('input.valeurInscriptionCles:checked').val();
+	if(valeurInscriptionCles != null && valeurInscriptionCles !== '')
+		vals['addInscriptionCles'] = valeurInscriptionCles;
 
 	var valeurInheritPk = $formulaireValeurs.find('.valeurInheritPk').val();
 	if(valeurInheritPk != null && valeurInheritPk !== '')
@@ -433,6 +444,10 @@ function patchCliniqueMedicaleFiltres($formulaireFiltres) {
 		if(filtreCliniqueAdministrateurNom != null && filtreCliniqueAdministrateurNom !== '')
 			filtres.push({ name: 'fq', value: 'cliniqueAdministrateurNom:' + filtreCliniqueAdministrateurNom });
 
+		var filtreCliniqueMail = $formulaireFiltres.find('.valeurCliniqueMail').val();
+		if(filtreCliniqueMail != null && filtreCliniqueMail !== '')
+			filtres.push({ name: 'fq', value: 'cliniqueMail:' + filtreCliniqueMail });
+
 		var filtreCliniqueMailDe = $formulaireFiltres.find('.valeurCliniqueMailDe').val();
 		if(filtreCliniqueMailDe != null && filtreCliniqueMailDe !== '')
 			filtres.push({ name: 'fq', value: 'cliniqueMailDe:' + filtreCliniqueMailDe });
@@ -449,9 +464,9 @@ function patchCliniqueMedicaleFiltres($formulaireFiltres) {
 		if(filtreCliniqueAddresse != null && filtreCliniqueAddresse !== '')
 			filtres.push({ name: 'fq', value: 'cliniqueAddresse:' + filtreCliniqueAddresse });
 
-		var filtreAnneeCles = $formulaireFiltres.find('.valeurAnneeCles').val();
-		if(filtreAnneeCles != null && filtreAnneeCles !== '')
-			filtres.push({ name: 'fq', value: 'anneeCles:' + filtreAnneeCles });
+		var filtreInscriptionCles = $formulaireFiltres.find('.valeurInscriptionCles').val();
+		if(filtreInscriptionCles != null && filtreInscriptionCles !== '')
+			filtres.push({ name: 'fq', value: 'inscriptionCles:' + filtreInscriptionCles });
 
 		var filtreInheritPk = $formulaireFiltres.find('.valeurInheritPk').val();
 		if(filtreInheritPk != null && filtreInheritPk !== '')
@@ -517,25 +532,9 @@ function patchCliniqueMedicaleFiltres($formulaireFiltres) {
 		if(filtreCliniqueCle != null && filtreCliniqueCle !== '')
 			filtres.push({ name: 'fq', value: 'cliniqueCle:' + filtreCliniqueCle });
 
-		var filtreSaisonCles = $formulaireFiltres.find('.valeurSaisonCles').val();
-		if(filtreSaisonCles != null && filtreSaisonCles !== '')
-			filtres.push({ name: 'fq', value: 'saisonCles:' + filtreSaisonCles });
-
-		var filtreSessionCles = $formulaireFiltres.find('.valeurSessionCles').val();
-		if(filtreSessionCles != null && filtreSessionCles !== '')
-			filtres.push({ name: 'fq', value: 'sessionCles:' + filtreSessionCles });
-
-		var filtreGroupeAgeCles = $formulaireFiltres.find('.valeurGroupeAgeCles').val();
-		if(filtreGroupeAgeCles != null && filtreGroupeAgeCles !== '')
-			filtres.push({ name: 'fq', value: 'groupeAgeCles:' + filtreGroupeAgeCles });
-
-		var filtreBlocCles = $formulaireFiltres.find('.valeurBlocCles').val();
-		if(filtreBlocCles != null && filtreBlocCles !== '')
-			filtres.push({ name: 'fq', value: 'blocCles:' + filtreBlocCles });
-
-		var filtreEnfantCles = $formulaireFiltres.find('.valeurEnfantCles').val();
-		if(filtreEnfantCles != null && filtreEnfantCles !== '')
-			filtres.push({ name: 'fq', value: 'enfantCles:' + filtreEnfantCles });
+		var filtrePatientCles = $formulaireFiltres.find('.valeurPatientCles').val();
+		if(filtrePatientCles != null && filtrePatientCles !== '')
+			filtres.push({ name: 'fq', value: 'patientCles:' + filtrePatientCles });
 
 		var filtreMedicaleTri = $formulaireFiltres.find('.valeurMedicaleTri').val();
 		if(filtreMedicaleTri != null && filtreMedicaleTri !== '')
@@ -651,6 +650,10 @@ function rechercheCliniqueMedicaleFiltres($formulaireFiltres) {
 		if(filtreCliniqueAdministrateurNom != null && filtreCliniqueAdministrateurNom !== '')
 			filtres.push({ name: 'fq', value: 'cliniqueAdministrateurNom:' + filtreCliniqueAdministrateurNom });
 
+		var filtreCliniqueMail = $formulaireFiltres.find('.valeurCliniqueMail').val();
+		if(filtreCliniqueMail != null && filtreCliniqueMail !== '')
+			filtres.push({ name: 'fq', value: 'cliniqueMail:' + filtreCliniqueMail });
+
 		var filtreCliniqueMailDe = $formulaireFiltres.find('.valeurCliniqueMailDe').val();
 		if(filtreCliniqueMailDe != null && filtreCliniqueMailDe !== '')
 			filtres.push({ name: 'fq', value: 'cliniqueMailDe:' + filtreCliniqueMailDe });
@@ -667,9 +670,9 @@ function rechercheCliniqueMedicaleFiltres($formulaireFiltres) {
 		if(filtreCliniqueAddresse != null && filtreCliniqueAddresse !== '')
 			filtres.push({ name: 'fq', value: 'cliniqueAddresse:' + filtreCliniqueAddresse });
 
-		var filtreAnneeCles = $formulaireFiltres.find('.valeurAnneeCles').val();
-		if(filtreAnneeCles != null && filtreAnneeCles !== '')
-			filtres.push({ name: 'fq', value: 'anneeCles:' + filtreAnneeCles });
+		var filtreInscriptionCles = $formulaireFiltres.find('.valeurInscriptionCles').val();
+		if(filtreInscriptionCles != null && filtreInscriptionCles !== '')
+			filtres.push({ name: 'fq', value: 'inscriptionCles:' + filtreInscriptionCles });
 
 		var filtreInheritPk = $formulaireFiltres.find('.valeurInheritPk').val();
 		if(filtreInheritPk != null && filtreInheritPk !== '')
@@ -735,25 +738,9 @@ function rechercheCliniqueMedicaleFiltres($formulaireFiltres) {
 		if(filtreCliniqueCle != null && filtreCliniqueCle !== '')
 			filtres.push({ name: 'fq', value: 'cliniqueCle:' + filtreCliniqueCle });
 
-		var filtreSaisonCles = $formulaireFiltres.find('.valeurSaisonCles').val();
-		if(filtreSaisonCles != null && filtreSaisonCles !== '')
-			filtres.push({ name: 'fq', value: 'saisonCles:' + filtreSaisonCles });
-
-		var filtreSessionCles = $formulaireFiltres.find('.valeurSessionCles').val();
-		if(filtreSessionCles != null && filtreSessionCles !== '')
-			filtres.push({ name: 'fq', value: 'sessionCles:' + filtreSessionCles });
-
-		var filtreGroupeAgeCles = $formulaireFiltres.find('.valeurGroupeAgeCles').val();
-		if(filtreGroupeAgeCles != null && filtreGroupeAgeCles !== '')
-			filtres.push({ name: 'fq', value: 'groupeAgeCles:' + filtreGroupeAgeCles });
-
-		var filtreBlocCles = $formulaireFiltres.find('.valeurBlocCles').val();
-		if(filtreBlocCles != null && filtreBlocCles !== '')
-			filtres.push({ name: 'fq', value: 'blocCles:' + filtreBlocCles });
-
-		var filtreEnfantCles = $formulaireFiltres.find('.valeurEnfantCles').val();
-		if(filtreEnfantCles != null && filtreEnfantCles !== '')
-			filtres.push({ name: 'fq', value: 'enfantCles:' + filtreEnfantCles });
+		var filtrePatientCles = $formulaireFiltres.find('.valeurPatientCles').val();
+		if(filtrePatientCles != null && filtrePatientCles !== '')
+			filtres.push({ name: 'fq', value: 'patientCles:' + filtrePatientCles });
 
 		var filtreMedicaleTri = $formulaireFiltres.find('.valeurMedicaleTri').val();
 		if(filtreMedicaleTri != null && filtreMedicaleTri !== '')
@@ -789,7 +776,7 @@ function suggereCliniqueMedicaleObjetSuggere($formulaireFiltres, $list) {
 	success = function( data, textStatus, jQxhr ) {
 		$list.empty();
 		$.each(data['list'], function(i, o) {
-			var $i = $('<i>').attr('class', 'far fa-clinic ');
+			var $i = $('<i>').attr('class', 'far fa-clinic-medical ');
 			var $span = $('<span>').attr('class', '').text(o['cliniqueNomComplet']);
 			var $li = $('<li>');
 			var $a = $('<a>').attr('href', o['pageUrlPk']);
@@ -801,6 +788,42 @@ function suggereCliniqueMedicaleObjetSuggere($formulaireFiltres, $list) {
 	};
 	error = function( jqXhr, textStatus, errorThrown ) {};
 	rechercherCliniqueMedicaleVals($formulaireFiltres, success, error);
+}
+
+function suggereCliniqueMedicaleInscriptionCles(filtres, $list, pk = null, attribuer=true) {
+	success = function( data, textStatus, jQxhr ) {
+		$list.empty();
+		$.each(data['list'], function(i, o) {
+			var $i = $('<i>').attr('class', 'fa fa-notes-medical ');
+			var $span = $('<span>').attr('class', '').text(o['inscriptionNomComplet']);
+			var $a = $('<a>').attr('id', o['pk']).attr('href', o['pageUrlPk'] + '#' + pk);
+			$a.append($i);
+			$a.append($span);
+			var val = o['cliniqueCle'];
+			var checked = pk == null ? false : Array.isArray(val) ? val.includes(pk.toString()) : val == pk;
+			var $input = $('<input>');
+			$input.attr('id', 'GET_inscriptionCles_' + pk + '_cliniqueCle_' + o['pk']);
+			$input.attr('value', o['pk']);
+			$input.attr('class', 'valeurInscriptionCles w3-check ');
+			if(pk != null) {
+				$input.attr('onchange', "var $input = $('#GET_inscriptionCles_" + pk + "_cliniqueCle_" + o['pk'] + "'); patchCliniqueMedicaleVals([{ name: 'fq', value: 'pk:" + pk + "' }], { [($input.prop('checked') ? 'add' : 'remove') + 'InscriptionCles']: \"" + o['pk'] + "\" } ); ");
+				$input.attr('onclick', 'enleverLueur($(this)); ');
+			}
+			$input.attr('type', 'checkbox');
+			if(checked)
+				$input.attr('checked', 'checked');
+			var $li = $('<li>');
+			if(attribuer)
+				$li.append($input);
+			$li.append($a);
+			$list.append($li);
+		});
+		var focusId = $('#CliniqueMedicaleForm :input[name="focusId"]').val();
+		if(focusId)
+			$('#' + focusId).parent().next().find('input').focus();
+	};
+	error = function( jqXhr, textStatus, errorThrown ) {};
+	rechercheInscriptionMedicaleVals(filtres, success, error);
 }
 
 // PUTImport //
@@ -884,6 +907,10 @@ async function putcopieCliniqueMedicale($formulaireValeurs, pk, success, error) 
 	if(valeurCliniqueAdministrateurNom != null && valeurCliniqueAdministrateurNom !== '')
 		vals['cliniqueAdministrateurNom'] = valeurCliniqueAdministrateurNom;
 
+	var valeurCliniqueMail = $formulaireValeurs.find('.valeurCliniqueMail').val();
+	if(valeurCliniqueMail != null && valeurCliniqueMail !== '')
+		vals['cliniqueMail'] = valeurCliniqueMail;
+
 	var valeurCliniqueMailDe = $formulaireValeurs.find('.valeurCliniqueMailDe').val();
 	if(valeurCliniqueMailDe != null && valeurCliniqueMailDe !== '')
 		vals['cliniqueMailDe'] = valeurCliniqueMailDe;
@@ -900,9 +927,9 @@ async function putcopieCliniqueMedicale($formulaireValeurs, pk, success, error) 
 	if(valeurCliniqueAddresse != null && valeurCliniqueAddresse !== '')
 		vals['cliniqueAddresse'] = valeurCliniqueAddresse;
 
-	var valeurAnneeCles = $formulaireValeurs.find('.valeurAnneeCles').val();
-	if(valeurAnneeCles != null && valeurAnneeCles !== '')
-		vals['anneeCles'] = valeurAnneeCles;
+	var valeurInscriptionCles = $formulaireValeurs.find('input.valeurInscriptionCles:checked').val();
+	if(valeurInscriptionCles != null && valeurInscriptionCles !== '')
+		vals['inscriptionCles'] = [valeurInscriptionCles];
 
 	var valeurInheritPk = $formulaireValeurs.find('.valeurInheritPk').val();
 	if(valeurInheritPk != null && valeurInheritPk !== '')
@@ -953,9 +980,9 @@ async function websocketCliniqueMedicale(success) {
 			var percent = Math.floor( numPATCH / numFound * 100 ) + '%';
 			var $box = $('<div>').attr('class', 'w3-display-topright w3-quarter box-' + id + ' ').attr('id', 'box-' + id);
 			var $margin = $('<div>').attr('class', 'w3-margin ').attr('id', 'margin-' + id);
-			var $card = $('<div>').attr('class', 'w3-card ').attr('id', 'card-' + id);
+			var $card = $('<div>').attr('class', 'w3-card w3-white ').attr('id', 'card-' + id);
 			var $header = $('<div>').attr('class', 'w3-container fa-pink ').attr('id', 'header-' + id);
-			var $i = $('<i>').attr('class', 'far fa-clinic w3-margin-right ').attr('id', 'icon-' + id);
+			var $i = $('<i>').attr('class', 'far fa-clinic-medical w3-margin-right ').attr('id', 'icon-' + id);
 			var $headerSpan = $('<span>').attr('class', '').text('modifier écoles');
 			var $x = $('<span>').attr('class', 'w3-button w3-display-topright ').attr('onclick', '$("#card-' + id + '").hide(); ').attr('id', 'x-' + id);
 			var $body = $('<div>').attr('class', 'w3-container w3-padding ').attr('id', 'text-' + id);
@@ -975,6 +1002,13 @@ async function websocketCliniqueMedicale(success) {
 				$('.top-box').append($box);
 			if(success)
 					success(json);
+		});
+
+		window.eventBus.registerHandler('websocketInscriptionMedicale', function (error, message) {
+			$('#Page_inscriptionCles').trigger('oninput');
+			$('#Page_inscriptionCles_ajouter').text('ajouter une inscription');
+			$('#Page_inscriptionCles_ajouter').removeClass('w3-disabled');
+			$('#Page_inscriptionCles_ajouter').attr('disabled', false);
 		});
 	}
 }
@@ -1072,6 +1106,18 @@ async function websocketCliniqueMedicaleInner(requeteApi) {
 				});
 				ajouterLueur($('.inputCliniqueMedicale' + pk + 'CliniqueAdministrateurNom'));
 			}
+			var val = o['cliniqueMail'];
+			if(vars.includes('cliniqueMail')) {
+				$('.inputCliniqueMedicale' + pk + 'CliniqueMail').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varCliniqueMedicale' + pk + 'CliniqueMail').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputCliniqueMedicale' + pk + 'CliniqueMail'));
+			}
 			var val = o['cliniqueMailDe'];
 			if(vars.includes('cliniqueMailDe')) {
 				$('.inputCliniqueMedicale' + pk + 'CliniqueMailDe').each(function() {
@@ -1119,6 +1165,18 @@ async function websocketCliniqueMedicaleInner(requeteApi) {
 						$(this).text(val);
 				});
 				ajouterLueur($('.inputCliniqueMedicale' + pk + 'CliniqueAddresse'));
+			}
+			var val = o['inscriptionCles'];
+			if(vars.includes('inscriptionCles')) {
+				$('.inputCliniqueMedicale' + pk + 'InscriptionCles').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varCliniqueMedicale' + pk + 'InscriptionCles').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputCliniqueMedicale' + pk + 'InscriptionCles'));
 			}
 			var val = o['inheritPk'];
 			if(vars.includes('inheritPk')) {

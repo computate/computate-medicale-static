@@ -53,6 +53,10 @@ async function postMedicalClinic($formValues, success, error) {
 	if(valueClinicAdministratorName != null && valueClinicAdministratorName !== '')
 		vals['clinicAdministratorName'] = valueClinicAdministratorName;
 
+	var valueClinicEmail = $formValues.find('.valueClinicEmail').val();
+	if(valueClinicEmail != null && valueClinicEmail !== '')
+		vals['clinicEmail'] = valueClinicEmail;
+
 	var valueClinicEmailFrom = $formValues.find('.valueClinicEmailFrom').val();
 	if(valueClinicEmailFrom != null && valueClinicEmailFrom !== '')
 		vals['clinicEmailFrom'] = valueClinicEmailFrom;
@@ -69,9 +73,12 @@ async function postMedicalClinic($formValues, success, error) {
 	if(valueClinicAddress != null && valueClinicAddress !== '')
 		vals['clinicAddress'] = valueClinicAddress;
 
-	var valueYearKeys = $formValues.find('.valueYearKeys').val();
-	if(valueYearKeys != null && valueYearKeys !== '')
-		vals['yearKeys'] = valueYearKeys;
+	var valueEnrollmentKeys = [];
+	$formValues.find('input.valueEnrollmentKeys:checked').each(function(index) {
+		valueEnrollmentKeys.push($(this).val());
+	});
+	if(valueEnrollmentKeys.length > 0)
+		vals['enrollmentKeys'] = valueEnrollmentKeys;
 
 	var valueInheritPk = $formValues.find('.valueInheritPk').val();
 	if(valueInheritPk != null && valueInheritPk !== '')
@@ -248,6 +255,19 @@ async function patchMedicalClinic($formFilters, $formValues, pk, success, error)
 	if(removeClinicAdministratorName != null && removeClinicAdministratorName !== '')
 		vals['removeClinicAdministratorName'] = removeClinicAdministratorName;
 
+	var valueClinicEmail = $formValues.find('.valueClinicEmail').val();
+	if(valueClinicEmail != null && valueClinicEmail !== '')
+	var removeClinicEmail = $formFilters.find('.removeClinicEmail').val() === 'true';
+	var setClinicEmail = removeClinicEmail ? null : $formValues.find('.setClinicEmail').val();
+	if(removeClinicEmail || setClinicEmail != null && setClinicEmail !== '')
+		vals['setClinicEmail'] = setClinicEmail;
+	var addClinicEmail = $formValues.find('.addClinicEmail').val();
+	if(addClinicEmail != null && addClinicEmail !== '')
+		vals['addClinicEmail'] = addClinicEmail;
+	var removeClinicEmail = $formValues.find('.removeClinicEmail').val();
+	if(removeClinicEmail != null && removeClinicEmail !== '')
+		vals['removeClinicEmail'] = removeClinicEmail;
+
 	var valueClinicEmailFrom = $formValues.find('.valueClinicEmailFrom').val();
 	if(valueClinicEmailFrom != null && valueClinicEmailFrom !== '')
 	var removeClinicEmailFrom = $formFilters.find('.removeClinicEmailFrom').val() === 'true';
@@ -300,18 +320,9 @@ async function patchMedicalClinic($formFilters, $formValues, pk, success, error)
 	if(removeClinicAddress != null && removeClinicAddress !== '')
 		vals['removeClinicAddress'] = removeClinicAddress;
 
-	var valueYearKeys = $formValues.find('.valueYearKeys').val();
-	if(valueYearKeys != null && valueYearKeys !== '')
-	var removeYearKeys = $formFilters.find('.removeYearKeys').val() === 'true';
-	var setYearKeys = removeYearKeys ? null : $formValues.find('.setYearKeys').val();
-	if(removeYearKeys || setYearKeys != null && setYearKeys !== '')
-		vals['setYearKeys'] = setYearKeys;
-	var addYearKeys = $formValues.find('.addYearKeys').val();
-	if(addYearKeys != null && addYearKeys !== '')
-		vals['addYearKeys'] = addYearKeys;
-	var removeYearKeys = $formValues.find('.removeYearKeys').val();
-	if(removeYearKeys != null && removeYearKeys !== '')
-		vals['removeYearKeys'] = removeYearKeys;
+	var valueEnrollmentKeys = $formValues.find('input.valueEnrollmentKeys:checked').val();
+	if(valueEnrollmentKeys != null && valueEnrollmentKeys !== '')
+		vals['addEnrollmentKeys'] = valueEnrollmentKeys;
 
 	var valueInheritPk = $formValues.find('.valueInheritPk').val();
 	if(valueInheritPk != null && valueInheritPk !== '')
@@ -433,6 +444,10 @@ function patchMedicalClinicFilters($formFilters) {
 		if(filterClinicAdministratorName != null && filterClinicAdministratorName !== '')
 			filters.push({ name: 'fq', value: 'clinicAdministratorName:' + filterClinicAdministratorName });
 
+		var filterClinicEmail = $formFilters.find('.valueClinicEmail').val();
+		if(filterClinicEmail != null && filterClinicEmail !== '')
+			filters.push({ name: 'fq', value: 'clinicEmail:' + filterClinicEmail });
+
 		var filterClinicEmailFrom = $formFilters.find('.valueClinicEmailFrom').val();
 		if(filterClinicEmailFrom != null && filterClinicEmailFrom !== '')
 			filters.push({ name: 'fq', value: 'clinicEmailFrom:' + filterClinicEmailFrom });
@@ -449,9 +464,9 @@ function patchMedicalClinicFilters($formFilters) {
 		if(filterClinicAddress != null && filterClinicAddress !== '')
 			filters.push({ name: 'fq', value: 'clinicAddress:' + filterClinicAddress });
 
-		var filterYearKeys = $formFilters.find('.valueYearKeys').val();
-		if(filterYearKeys != null && filterYearKeys !== '')
-			filters.push({ name: 'fq', value: 'yearKeys:' + filterYearKeys });
+		var filterEnrollmentKeys = $formFilters.find('.valueEnrollmentKeys').val();
+		if(filterEnrollmentKeys != null && filterEnrollmentKeys !== '')
+			filters.push({ name: 'fq', value: 'enrollmentKeys:' + filterEnrollmentKeys });
 
 		var filterInheritPk = $formFilters.find('.valueInheritPk').val();
 		if(filterInheritPk != null && filterInheritPk !== '')
@@ -517,25 +532,9 @@ function patchMedicalClinicFilters($formFilters) {
 		if(filterClinicKey != null && filterClinicKey !== '')
 			filters.push({ name: 'fq', value: 'clinicKey:' + filterClinicKey });
 
-		var filterSeasonKeys = $formFilters.find('.valueSeasonKeys').val();
-		if(filterSeasonKeys != null && filterSeasonKeys !== '')
-			filters.push({ name: 'fq', value: 'seasonKeys:' + filterSeasonKeys });
-
-		var filterSessionKeys = $formFilters.find('.valueSessionKeys').val();
-		if(filterSessionKeys != null && filterSessionKeys !== '')
-			filters.push({ name: 'fq', value: 'sessionKeys:' + filterSessionKeys });
-
-		var filterAgeGroupKeys = $formFilters.find('.valueAgeGroupKeys').val();
-		if(filterAgeGroupKeys != null && filterAgeGroupKeys !== '')
-			filters.push({ name: 'fq', value: 'ageGroupKeys:' + filterAgeGroupKeys });
-
-		var filterBlockKeys = $formFilters.find('.valueBlockKeys').val();
-		if(filterBlockKeys != null && filterBlockKeys !== '')
-			filters.push({ name: 'fq', value: 'blockKeys:' + filterBlockKeys });
-
-		var filterChildKeys = $formFilters.find('.valueChildKeys').val();
-		if(filterChildKeys != null && filterChildKeys !== '')
-			filters.push({ name: 'fq', value: 'childKeys:' + filterChildKeys });
+		var filterPatientKeys = $formFilters.find('.valuePatientKeys').val();
+		if(filterPatientKeys != null && filterPatientKeys !== '')
+			filters.push({ name: 'fq', value: 'patientKeys:' + filterPatientKeys });
 
 		var filterEducationSort = $formFilters.find('.valueEducationSort').val();
 		if(filterEducationSort != null && filterEducationSort !== '')
@@ -651,6 +650,10 @@ function searchMedicalClinicFilters($formFilters) {
 		if(filterClinicAdministratorName != null && filterClinicAdministratorName !== '')
 			filters.push({ name: 'fq', value: 'clinicAdministratorName:' + filterClinicAdministratorName });
 
+		var filterClinicEmail = $formFilters.find('.valueClinicEmail').val();
+		if(filterClinicEmail != null && filterClinicEmail !== '')
+			filters.push({ name: 'fq', value: 'clinicEmail:' + filterClinicEmail });
+
 		var filterClinicEmailFrom = $formFilters.find('.valueClinicEmailFrom').val();
 		if(filterClinicEmailFrom != null && filterClinicEmailFrom !== '')
 			filters.push({ name: 'fq', value: 'clinicEmailFrom:' + filterClinicEmailFrom });
@@ -667,9 +670,9 @@ function searchMedicalClinicFilters($formFilters) {
 		if(filterClinicAddress != null && filterClinicAddress !== '')
 			filters.push({ name: 'fq', value: 'clinicAddress:' + filterClinicAddress });
 
-		var filterYearKeys = $formFilters.find('.valueYearKeys').val();
-		if(filterYearKeys != null && filterYearKeys !== '')
-			filters.push({ name: 'fq', value: 'yearKeys:' + filterYearKeys });
+		var filterEnrollmentKeys = $formFilters.find('.valueEnrollmentKeys').val();
+		if(filterEnrollmentKeys != null && filterEnrollmentKeys !== '')
+			filters.push({ name: 'fq', value: 'enrollmentKeys:' + filterEnrollmentKeys });
 
 		var filterInheritPk = $formFilters.find('.valueInheritPk').val();
 		if(filterInheritPk != null && filterInheritPk !== '')
@@ -735,25 +738,9 @@ function searchMedicalClinicFilters($formFilters) {
 		if(filterClinicKey != null && filterClinicKey !== '')
 			filters.push({ name: 'fq', value: 'clinicKey:' + filterClinicKey });
 
-		var filterSeasonKeys = $formFilters.find('.valueSeasonKeys').val();
-		if(filterSeasonKeys != null && filterSeasonKeys !== '')
-			filters.push({ name: 'fq', value: 'seasonKeys:' + filterSeasonKeys });
-
-		var filterSessionKeys = $formFilters.find('.valueSessionKeys').val();
-		if(filterSessionKeys != null && filterSessionKeys !== '')
-			filters.push({ name: 'fq', value: 'sessionKeys:' + filterSessionKeys });
-
-		var filterAgeGroupKeys = $formFilters.find('.valueAgeGroupKeys').val();
-		if(filterAgeGroupKeys != null && filterAgeGroupKeys !== '')
-			filters.push({ name: 'fq', value: 'ageGroupKeys:' + filterAgeGroupKeys });
-
-		var filterBlockKeys = $formFilters.find('.valueBlockKeys').val();
-		if(filterBlockKeys != null && filterBlockKeys !== '')
-			filters.push({ name: 'fq', value: 'blockKeys:' + filterBlockKeys });
-
-		var filterChildKeys = $formFilters.find('.valueChildKeys').val();
-		if(filterChildKeys != null && filterChildKeys !== '')
-			filters.push({ name: 'fq', value: 'childKeys:' + filterChildKeys });
+		var filterPatientKeys = $formFilters.find('.valuePatientKeys').val();
+		if(filterPatientKeys != null && filterPatientKeys !== '')
+			filters.push({ name: 'fq', value: 'patientKeys:' + filterPatientKeys });
 
 		var filterEducationSort = $formFilters.find('.valueEducationSort').val();
 		if(filterEducationSort != null && filterEducationSort !== '')
@@ -789,7 +776,7 @@ function suggestMedicalClinicObjectSuggest($formFilters, $list) {
 	success = function( data, textStatus, jQxhr ) {
 		$list.empty();
 		$.each(data['list'], function(i, o) {
-			var $i = $('<i>').attr('class', 'far fa-clinic ');
+			var $i = $('<i>').attr('class', 'far fa-clinic-medical ');
 			var $span = $('<span>').attr('class', '').text(o['clinicCompleteName']);
 			var $li = $('<li>');
 			var $a = $('<a>').attr('href', o['pageUrlPk']);
@@ -801,6 +788,42 @@ function suggestMedicalClinicObjectSuggest($formFilters, $list) {
 	};
 	error = function( jqXhr, textStatus, errorThrown ) {};
 	searchMedicalClinicVals($formFilters, success, error);
+}
+
+function suggestMedicalClinicEnrollmentKeys(filters, $list, pk = null, attribute=true) {
+	success = function( data, textStatus, jQxhr ) {
+		$list.empty();
+		$.each(data['list'], function(i, o) {
+			var $i = $('<i>').attr('class', 'fa fa-notes-medical ');
+			var $span = $('<span>').attr('class', '').text(o['enrollmentCompleteName']);
+			var $a = $('<a>').attr('id', o['pk']).attr('href', o['pageUrlPk'] + '#' + pk);
+			$a.append($i);
+			$a.append($span);
+			var val = o['clinicKey'];
+			var checked = pk == null ? false : Array.isArray(val) ? val.includes(pk.toString()) : val == pk;
+			var $input = $('<input>');
+			$input.attr('id', 'GET_enrollmentKeys_' + pk + '_clinicKey_' + o['pk']);
+			$input.attr('value', o['pk']);
+			$input.attr('class', 'valueEnrollmentKeys w3-check ');
+			if(pk != null) {
+				$input.attr('onchange', "var $input = $('#GET_enrollmentKeys_" + pk + "_clinicKey_" + o['pk'] + "'); patchMedicalClinicVals([{ name: 'fq', value: 'pk:" + pk + "' }], { [($input.prop('checked') ? 'add' : 'remove') + 'EnrollmentKeys']: \"" + o['pk'] + "\" } ); ");
+				$input.attr('onclick', 'removeGlow($(this)); ');
+			}
+			$input.attr('type', 'checkbox');
+			if(checked)
+				$input.attr('checked', 'checked');
+			var $li = $('<li>');
+			if(attribute)
+				$li.append($input);
+			$li.append($a);
+			$list.append($li);
+		});
+		var focusId = $('#MedicalClinicForm :input[name="focusId"]').val();
+		if(focusId)
+			$('#' + focusId).parent().next().find('input').focus();
+	};
+	error = function( jqXhr, textStatus, errorThrown ) {};
+	searchMedicalEnrollmentVals(filters, success, error);
 }
 
 // PUTImport //
@@ -884,6 +907,10 @@ async function putcopyMedicalClinic($formValues, pk, success, error) {
 	if(valueClinicAdministratorName != null && valueClinicAdministratorName !== '')
 		vals['clinicAdministratorName'] = valueClinicAdministratorName;
 
+	var valueClinicEmail = $formValues.find('.valueClinicEmail').val();
+	if(valueClinicEmail != null && valueClinicEmail !== '')
+		vals['clinicEmail'] = valueClinicEmail;
+
 	var valueClinicEmailFrom = $formValues.find('.valueClinicEmailFrom').val();
 	if(valueClinicEmailFrom != null && valueClinicEmailFrom !== '')
 		vals['clinicEmailFrom'] = valueClinicEmailFrom;
@@ -900,9 +927,9 @@ async function putcopyMedicalClinic($formValues, pk, success, error) {
 	if(valueClinicAddress != null && valueClinicAddress !== '')
 		vals['clinicAddress'] = valueClinicAddress;
 
-	var valueYearKeys = $formValues.find('.valueYearKeys').val();
-	if(valueYearKeys != null && valueYearKeys !== '')
-		vals['yearKeys'] = valueYearKeys;
+	var valueEnrollmentKeys = $formValues.find('input.valueEnrollmentKeys:checked').val();
+	if(valueEnrollmentKeys != null && valueEnrollmentKeys !== '')
+		vals['enrollmentKeys'] = [valueEnrollmentKeys];
 
 	var valueInheritPk = $formValues.find('.valueInheritPk').val();
 	if(valueInheritPk != null && valueInheritPk !== '')
@@ -953,9 +980,9 @@ async function websocketMedicalClinic(success) {
 			var percent = Math.floor( numPATCH / numFound * 100 ) + '%';
 			var $box = $('<div>').attr('class', 'w3-display-topright w3-quarter box-' + id + ' ').attr('id', 'box-' + id);
 			var $margin = $('<div>').attr('class', 'w3-margin ').attr('id', 'margin-' + id);
-			var $card = $('<div>').attr('class', 'w3-card ').attr('id', 'card-' + id);
+			var $card = $('<div>').attr('class', 'w3-card w3-white ').attr('id', 'card-' + id);
 			var $header = $('<div>').attr('class', 'w3-container fa-pink ').attr('id', 'header-' + id);
-			var $i = $('<i>').attr('class', 'far fa-clinic w3-margin-right ').attr('id', 'icon-' + id);
+			var $i = $('<i>').attr('class', 'far fa-clinic-medical w3-margin-right ').attr('id', 'icon-' + id);
 			var $headerSpan = $('<span>').attr('class', '').text('modify clinics');
 			var $x = $('<span>').attr('class', 'w3-button w3-display-topright ').attr('onclick', '$("#card-' + id + '").hide(); ').attr('id', 'x-' + id);
 			var $body = $('<div>').attr('class', 'w3-container w3-padding ').attr('id', 'text-' + id);
@@ -975,6 +1002,13 @@ async function websocketMedicalClinic(success) {
 				$('.top-box').append($box);
 			if(success)
 					success(json);
+		});
+
+		window.eventBus.registerHandler('websocketMedicalEnrollment', function (error, message) {
+			$('#Page_enrollmentKeys').trigger('oninput');
+			$('#Page_enrollmentKeys_add').text('add an enrollment');
+			$('#Page_enrollmentKeys_add').removeClass('w3-disabled');
+			$('#Page_enrollmentKeys_add').attr('disabled', false);
 		});
 	}
 }
@@ -1072,6 +1106,18 @@ async function websocketMedicalClinicInner(apiRequest) {
 				});
 				addGlow($('.inputMedicalClinic' + pk + 'ClinicAdministratorName'));
 			}
+			var val = o['clinicEmail'];
+			if(vars.includes('clinicEmail')) {
+				$('.inputMedicalClinic' + pk + 'ClinicEmail').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varMedicalClinic' + pk + 'ClinicEmail').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				addGlow($('.inputMedicalClinic' + pk + 'ClinicEmail'));
+			}
 			var val = o['clinicEmailFrom'];
 			if(vars.includes('clinicEmailFrom')) {
 				$('.inputMedicalClinic' + pk + 'ClinicEmailFrom').each(function() {
@@ -1119,6 +1165,18 @@ async function websocketMedicalClinicInner(apiRequest) {
 						$(this).text(val);
 				});
 				addGlow($('.inputMedicalClinic' + pk + 'ClinicAddress'));
+			}
+			var val = o['enrollmentKeys'];
+			if(vars.includes('enrollmentKeys')) {
+				$('.inputMedicalClinic' + pk + 'EnrollmentKeys').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varMedicalClinic' + pk + 'EnrollmentKeys').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				addGlow($('.inputMedicalClinic' + pk + 'EnrollmentKeys'));
 			}
 			var val = o['inheritPk'];
 			if(vars.includes('inheritPk')) {

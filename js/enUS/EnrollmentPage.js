@@ -1792,11 +1792,47 @@ function suggestMedicalEnrollmentObjectSuggest($formFilters, $list) {
 	searchMedicalEnrollmentVals($formFilters, success, error);
 }
 
+function suggestMedicalEnrollmentClinicKey(filters, $list, pk = null, attribute=true) {
+	success = function( data, textStatus, jQxhr ) {
+		$list.empty();
+		$.each(data['list'], function(i, o) {
+			var $i = $('<i>').attr('class', 'fa fa-clinic ');
+			var $span = $('<span>').attr('class', '').text(o['clinicCompleteName']);
+			var $a = $('<a>').attr('id', o['pk']).attr('href', o['pageUrlPk'] + '#' + pk);
+			$a.append($i);
+			$a.append($span);
+			var val = o['enrollmentKeys'];
+			var checked = pk == null ? false : Array.isArray(val) ? val.includes(pk.toString()) : val == pk;
+			var $input = $('<input>');
+			$input.attr('id', 'GET_clinicKey_' + pk + '_enrollmentKeys_' + o['pk']);
+			$input.attr('value', o['pk']);
+			$input.attr('class', 'valueClinicKey w3-check ');
+			if(pk != null) {
+				$input.attr('onchange', "var $input = $('#GET_clinicKey_" + pk + "_enrollmentKeys_" + o['pk'] + "'); patchMedicalEnrollmentVals([{ name: 'fq', value: 'pk:" + pk + "' }], { [($input.prop('checked') ? 'set' : 'remove') + 'ClinicKey']: \"" + o['pk'] + "\" } ); ");
+				$input.attr('onclick', 'removeGlow($(this)); ');
+			}
+			$input.attr('type', 'checkbox');
+			if(checked)
+				$input.attr('checked', 'checked');
+			var $li = $('<li>');
+			if(attribute)
+				$li.append($input);
+			$li.append($a);
+			$list.append($li);
+		});
+		var focusId = $('#MedicalEnrollmentForm :input[name="focusId"]').val();
+		if(focusId)
+			$('#' + focusId).parent().next().find('input').focus();
+	};
+	error = function( jqXhr, textStatus, errorThrown ) {};
+	searchMedicalClinicVals(filters, success, error);
+}
+
 function suggestMedicalEnrollmentPatientKey(filters, $list, pk = null, attribute=true) {
 	success = function( data, textStatus, jQxhr ) {
 		$list.empty();
 		$.each(data['list'], function(i, o) {
-			var $i = $('<i>').attr('class', 'fa fa-hostpital-user ');
+			var $i = $('<i>').attr('class', 'fa fa-hospital-user ');
 			var $span = $('<span>').attr('class', '').text(o['patientCompleteName']);
 			var $a = $('<a>').attr('id', o['pk']).attr('href', o['pageUrlPk'] + '#' + pk);
 			$a.append($i);
@@ -2216,11 +2252,47 @@ function suggestMedicalEnrollmentObjectSuggest($formFilters, $list) {
 	searchMedicalEnrollmentVals($formFilters, success, error);
 }
 
+function suggestMedicalEnrollmentClinicKey(filters, $list, pk = null, attribute=true) {
+	success = function( data, textStatus, jQxhr ) {
+		$list.empty();
+		$.each(data['list'], function(i, o) {
+			var $i = $('<i>').attr('class', 'fa fa-clinic ');
+			var $span = $('<span>').attr('class', '').text(o['clinicCompleteName']);
+			var $a = $('<a>').attr('id', o['pk']).attr('href', o['pageUrlPk'] + '#' + pk);
+			$a.append($i);
+			$a.append($span);
+			var val = o['enrollmentKeys'];
+			var checked = pk == null ? false : Array.isArray(val) ? val.includes(pk.toString()) : val == pk;
+			var $input = $('<input>');
+			$input.attr('id', 'GET_clinicKey_' + pk + '_enrollmentKeys_' + o['pk']);
+			$input.attr('value', o['pk']);
+			$input.attr('class', 'valueClinicKey w3-check ');
+			if(pk != null) {
+				$input.attr('onchange', "var $input = $('#GET_clinicKey_" + pk + "_enrollmentKeys_" + o['pk'] + "'); patchMedicalEnrollmentVals([{ name: 'fq', value: 'pk:" + pk + "' }], { [($input.prop('checked') ? 'set' : 'remove') + 'ClinicKey']: \"" + o['pk'] + "\" } ); ");
+				$input.attr('onclick', 'removeGlow($(this)); ');
+			}
+			$input.attr('type', 'checkbox');
+			if(checked)
+				$input.attr('checked', 'checked');
+			var $li = $('<li>');
+			if(attribute)
+				$li.append($input);
+			$li.append($a);
+			$list.append($li);
+		});
+		var focusId = $('#MedicalEnrollmentForm :input[name="focusId"]').val();
+		if(focusId)
+			$('#' + focusId).parent().next().find('input').focus();
+	};
+	error = function( jqXhr, textStatus, errorThrown ) {};
+	searchMedicalClinicVals(filters, success, error);
+}
+
 function suggestMedicalEnrollmentPatientKey(filters, $list, pk = null, attribute=true) {
 	success = function( data, textStatus, jQxhr ) {
 		$list.empty();
 		$.each(data['list'], function(i, o) {
-			var $i = $('<i>').attr('class', 'fa fa-hostpital-user ');
+			var $i = $('<i>').attr('class', 'fa fa-hospital-user ');
 			var $span = $('<span>').attr('class', '').text(o['patientCompleteName']);
 			var $a = $('<a>').attr('id', o['pk']).attr('href', o['pageUrlPk'] + '#' + pk);
 			$a.append($i);
@@ -3250,7 +3322,7 @@ async function websocketMedicalEnrollment(success) {
 			var percent = Math.floor( numPATCH / numFound * 100 ) + '%';
 			var $box = $('<div>').attr('class', 'w3-display-topright w3-quarter box-' + id + ' ').attr('id', 'box-' + id);
 			var $margin = $('<div>').attr('class', 'w3-margin ').attr('id', 'margin-' + id);
-			var $card = $('<div>').attr('class', 'w3-card ').attr('id', 'card-' + id);
+			var $card = $('<div>').attr('class', 'w3-card w3-white ').attr('id', 'card-' + id);
 			var $header = $('<div>').attr('class', 'w3-container fa-blue-gray ').attr('id', 'header-' + id);
 			var $i = $('<i>').attr('class', 'fas fa-notes-medical w3-margin-right ').attr('id', 'icon-' + id);
 			var $headerSpan = $('<span>').attr('class', '').text('modify enrollments');
@@ -3274,6 +3346,13 @@ async function websocketMedicalEnrollment(success) {
 					success(json);
 		});
 
+		window.eventBus.registerHandler('websocketMedicalClinic', function (error, message) {
+			$('#Page_clinicKey').trigger('oninput');
+			$('#Page_clinicKey_add').text('add a clinic');
+			$('#Page_clinicKey_add').removeClass('w3-disabled');
+			$('#Page_clinicKey_add').attr('disabled', false);
+		});
+
 		window.eventBus.registerHandler('websocketMedicalPatient', function (error, message) {
 			$('#Page_patientKey').trigger('oninput');
 			$('#Page_patientKey_add').text('add a patient');
@@ -3286,6 +3365,13 @@ async function websocketMedicalEnrollment(success) {
 			$('#Page_userKeys_add').text('add a site user');
 			$('#Page_userKeys_add').removeClass('w3-disabled');
 			$('#Page_userKeys_add').attr('disabled', false);
+		});
+
+		window.eventBus.registerHandler('websocketMedicalClinic', function (error, message) {
+			$('#Page_clinicKey').trigger('oninput');
+			$('#Page_clinicKey_add').text('add a clinic');
+			$('#Page_clinicKey_add').removeClass('w3-disabled');
+			$('#Page_clinicKey_add').attr('disabled', false);
 		});
 
 		window.eventBus.registerHandler('websocketMedicalPatient', function (error, message) {
@@ -3541,6 +3627,18 @@ async function websocketMedicalEnrollmentInner(apiRequest) {
 				});
 				addGlow($('.inputMedicalEnrollment' + pk + 'UserKey'));
 			}
+			var val = o['clinicKey'];
+			if(vars.includes('clinicKey')) {
+				$('.inputMedicalEnrollment' + pk + 'ClinicKey').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varMedicalEnrollment' + pk + 'ClinicKey').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				addGlow($('.inputMedicalEnrollment' + pk + 'ClinicKey'));
+			}
 			var val = o['patientCompleteName'];
 			if(vars.includes('patientCompleteName')) {
 				$('.inputMedicalEnrollment' + pk + 'PatientCompleteName').each(function() {
@@ -3608,6 +3706,13 @@ async function websocketMedicalEnrollmentInner(apiRequest) {
 			}
 			var val = o['enrollmentSignature1'];
 			if(vars.includes('enrollmentSignature1')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature1').each(function() {
+					if(val !== $('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature1').attr('src'))
+						$('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature1').attr('src', val == null ? 'data:image/png;base64,' : val);
+					addGlow($('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature1'));
+				});
 				$('.inputMedicalEnrollment' + pk + 'EnrollmentSignature1').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3620,6 +3725,13 @@ async function websocketMedicalEnrollmentInner(apiRequest) {
 			}
 			var val = o['enrollmentSignature2'];
 			if(vars.includes('enrollmentSignature2')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature2').each(function() {
+					if(val !== $('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature2').attr('src'))
+						$('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature2').attr('src', val == null ? 'data:image/png;base64,' : val);
+					addGlow($('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature2'));
+				});
 				$('.inputMedicalEnrollment' + pk + 'EnrollmentSignature2').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3632,6 +3744,13 @@ async function websocketMedicalEnrollmentInner(apiRequest) {
 			}
 			var val = o['enrollmentSignature3'];
 			if(vars.includes('enrollmentSignature3')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature3').each(function() {
+					if(val !== $('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature3').attr('src'))
+						$('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature3').attr('src', val == null ? 'data:image/png;base64,' : val);
+					addGlow($('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature3'));
+				});
 				$('.inputMedicalEnrollment' + pk + 'EnrollmentSignature3').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3644,6 +3763,13 @@ async function websocketMedicalEnrollmentInner(apiRequest) {
 			}
 			var val = o['enrollmentSignature4'];
 			if(vars.includes('enrollmentSignature4')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature4').each(function() {
+					if(val !== $('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature4').attr('src'))
+						$('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature4').attr('src', val == null ? 'data:image/png;base64,' : val);
+					addGlow($('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature4'));
+				});
 				$('.inputMedicalEnrollment' + pk + 'EnrollmentSignature4').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3656,6 +3782,13 @@ async function websocketMedicalEnrollmentInner(apiRequest) {
 			}
 			var val = o['enrollmentSignature5'];
 			if(vars.includes('enrollmentSignature5')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature5').each(function() {
+					if(val !== $('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature5').attr('src'))
+						$('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature5').attr('src', val == null ? 'data:image/png;base64,' : val);
+					addGlow($('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature5'));
+				});
 				$('.inputMedicalEnrollment' + pk + 'EnrollmentSignature5').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3668,6 +3801,13 @@ async function websocketMedicalEnrollmentInner(apiRequest) {
 			}
 			var val = o['enrollmentSignature6'];
 			if(vars.includes('enrollmentSignature6')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature6').each(function() {
+					if(val !== $('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature6').attr('src'))
+						$('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature6').attr('src', val == null ? 'data:image/png;base64,' : val);
+					addGlow($('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature6'));
+				});
 				$('.inputMedicalEnrollment' + pk + 'EnrollmentSignature6').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3680,6 +3820,13 @@ async function websocketMedicalEnrollmentInner(apiRequest) {
 			}
 			var val = o['enrollmentSignature7'];
 			if(vars.includes('enrollmentSignature7')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature7').each(function() {
+					if(val !== $('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature7').attr('src'))
+						$('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature7').attr('src', val == null ? 'data:image/png;base64,' : val);
+					addGlow($('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature7'));
+				});
 				$('.inputMedicalEnrollment' + pk + 'EnrollmentSignature7').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3692,6 +3839,13 @@ async function websocketMedicalEnrollmentInner(apiRequest) {
 			}
 			var val = o['enrollmentSignature8'];
 			if(vars.includes('enrollmentSignature8')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature8').each(function() {
+					if(val !== $('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature8').attr('src'))
+						$('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature8').attr('src', val == null ? 'data:image/png;base64,' : val);
+					addGlow($('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature8'));
+				});
 				$('.inputMedicalEnrollment' + pk + 'EnrollmentSignature8').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3704,6 +3858,13 @@ async function websocketMedicalEnrollmentInner(apiRequest) {
 			}
 			var val = o['enrollmentSignature9'];
 			if(vars.includes('enrollmentSignature9')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature9').each(function() {
+					if(val !== $('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature9').attr('src'))
+						$('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature9').attr('src', val == null ? 'data:image/png;base64,' : val);
+					addGlow($('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature9'));
+				});
 				$('.inputMedicalEnrollment' + pk + 'EnrollmentSignature9').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
@@ -3716,6 +3877,13 @@ async function websocketMedicalEnrollmentInner(apiRequest) {
 			}
 			var val = o['enrollmentSignature10'];
 			if(vars.includes('enrollmentSignature10')) {
+				if(val === undefined)
+					val = null;
+				$('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature10').each(function() {
+					if(val !== $('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature10').attr('src'))
+						$('.signatureImgMedicalEnrollment' + pk + 'EnrollmentSignature10').attr('src', val == null ? 'data:image/png;base64,' : val);
+					addGlow($('.signatureInputMedicalEnrollment' + pk + 'EnrollmentSignature10'));
+				});
 				$('.inputMedicalEnrollment' + pk + 'EnrollmentSignature10').each(function() {
 					if(val !== $(this).val())
 						$(this).val(val);
