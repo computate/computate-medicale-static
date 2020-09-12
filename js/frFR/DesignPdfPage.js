@@ -234,8 +234,7 @@ async function patchDesignPage($formulaireFiltres, $formulaireValeurs, pk, succe
 	var vals = {};
 
 	var valeurPk = $formulaireValeurs.find('.valeurPk').val();
-	if(valeurPk != null && valeurPk !== '')
-	var removePk = $formulaireFiltres.find('.removePk').val() === 'true';
+	var removePk = $formulaireValeurs.find('.removePk').val() === 'true';
 	var setPk = removePk ? null : $formulaireValeurs.find('.setPk').val();
 	if(removePk || setPk != null && setPk !== '')
 		vals['setPk'] = setPk;
@@ -247,8 +246,7 @@ async function patchDesignPage($formulaireFiltres, $formulaireValeurs, pk, succe
 		vals['removePk'] = removePk;
 
 	var valeurCree = $formulaireValeurs.find('.valeurCree').val();
-	if(valeurCree != null && valeurCree !== '')
-	var removeCree = $formulaireFiltres.find('.removeCree').val() === 'true';
+	var removeCree = $formulaireValeurs.find('.removeCree').val() === 'true';
 	var setCree = removeCree ? null : $formulaireValeurs.find('.setCree').val();
 	if(removeCree || setCree != null && setCree !== '')
 		vals['setCree'] = setCree;
@@ -260,8 +258,7 @@ async function patchDesignPage($formulaireFiltres, $formulaireValeurs, pk, succe
 		vals['removeCree'] = removeCree;
 
 	var valeurModifie = $formulaireValeurs.find('.valeurModifie').val();
-	if(valeurModifie != null && valeurModifie !== '')
-	var removeModifie = $formulaireFiltres.find('.removeModifie').val() === 'true';
+	var removeModifie = $formulaireValeurs.find('.removeModifie').val() === 'true';
 	var setModifie = removeModifie ? null : $formulaireValeurs.find('.setModifie').val();
 	if(removeModifie || setModifie != null && setModifie !== '')
 		vals['setModifie'] = setModifie;
@@ -273,8 +270,7 @@ async function patchDesignPage($formulaireFiltres, $formulaireValeurs, pk, succe
 		vals['removeModifie'] = removeModifie;
 
 	var valeurObjetId = $formulaireValeurs.find('.valeurObjetId').val();
-	if(valeurObjetId != null && valeurObjetId !== '')
-	var removeObjetId = $formulaireFiltres.find('.removeObjetId').val() === 'true';
+	var removeObjetId = $formulaireValeurs.find('.removeObjetId').val() === 'true';
 	var setObjetId = removeObjetId ? null : $formulaireValeurs.find('.setObjetId').val();
 	if(removeObjetId || setObjetId != null && setObjetId !== '')
 		vals['setObjetId'] = setObjetId;
@@ -286,11 +282,10 @@ async function patchDesignPage($formulaireFiltres, $formulaireValeurs, pk, succe
 		vals['removeObjetId'] = removeObjetId;
 
 	var valeurArchive = $formulaireValeurs.find('.valeurArchive').prop('checked');
-	if(valeurArchive != null && valeurArchive !== '')
-	var removeArchive = $formulaireFiltres.find('.removeArchive').val() === 'true';
+	var removeArchive = $formulaireValeurs.find('.removeArchive').val() === 'true';
 	var valeurArchiveSelectVal = $formulaireValeurs.find('select.setArchive').val();
 	var valeurArchive = null;
-	if(valeurArchiveSelectVal !== '')
+	if(valeurArchiveSelectVal != null && valeurArchiveSelectVal !== '')
 		valeurArchive = valeurArchiveSelectVal == 'true';
 	setArchive = removeArchive ? null : valeurArchive;
 	if(removeArchive || setArchive != null && setArchive !== '')
@@ -303,11 +298,10 @@ async function patchDesignPage($formulaireFiltres, $formulaireValeurs, pk, succe
 		vals['removeArchive'] = removeArchive;
 
 	var valeurSupprime = $formulaireValeurs.find('.valeurSupprime').prop('checked');
-	if(valeurSupprime != null && valeurSupprime !== '')
-	var removeSupprime = $formulaireFiltres.find('.removeSupprime').val() === 'true';
+	var removeSupprime = $formulaireValeurs.find('.removeSupprime').val() === 'true';
 	var valeurSupprimeSelectVal = $formulaireValeurs.find('select.setSupprime').val();
 	var valeurSupprime = null;
-	if(valeurSupprimeSelectVal !== '')
+	if(valeurSupprimeSelectVal != null && valeurSupprimeSelectVal !== '')
 		valeurSupprime = valeurSupprimeSelectVal == 'true';
 	setSupprime = removeSupprime ? null : valeurSupprime;
 	if(removeSupprime || setSupprime != null && setSupprime !== '')
@@ -320,8 +314,7 @@ async function patchDesignPage($formulaireFiltres, $formulaireValeurs, pk, succe
 		vals['removeSupprime'] = removeSupprime;
 
 	var valeurDesignPageNomComplet = $formulaireValeurs.find('.valeurDesignPageNomComplet').val();
-	if(valeurDesignPageNomComplet != null && valeurDesignPageNomComplet !== '')
-	var removeDesignPageNomComplet = $formulaireFiltres.find('.removeDesignPageNomComplet').val() === 'true';
+	var removeDesignPageNomComplet = $formulaireValeurs.find('.removeDesignPageNomComplet').val() === 'true';
 	var setDesignPageNomComplet = removeDesignPageNomComplet ? null : $formulaireValeurs.find('.setDesignPageNomComplet').val();
 	if(removeDesignPageNomComplet || setDesignPageNomComplet != null && setDesignPageNomComplet !== '')
 		vals['setDesignPageNomComplet'] = setDesignPageNomComplet;
@@ -333,11 +326,10 @@ async function patchDesignPage($formulaireFiltres, $formulaireValeurs, pk, succe
 		vals['removeDesignPageNomComplet'] = removeDesignPageNomComplet;
 
 	var valeurDesignCache = $formulaireValeurs.find('.valeurDesignCache').prop('checked');
-	if(valeurDesignCache != null && valeurDesignCache !== '')
-	var removeDesignCache = $formulaireFiltres.find('.removeDesignCache').val() === 'true';
+	var removeDesignCache = $formulaireValeurs.find('.removeDesignCache').val() === 'true';
 	var valeurDesignCacheSelectVal = $formulaireValeurs.find('select.setDesignCache').val();
 	var valeurDesignCache = null;
-	if(valeurDesignCacheSelectVal !== '')
+	if(valeurDesignCacheSelectVal != null && valeurDesignCacheSelectVal !== '')
 		valeurDesignCache = valeurDesignCacheSelectVal == 'true';
 	setDesignCache = removeDesignCache ? null : valeurDesignCache;
 	if(removeDesignCache || setDesignCache != null && setDesignCache !== '')
@@ -358,8 +350,7 @@ async function patchDesignPage($formulaireFiltres, $formulaireValeurs, pk, succe
 		vals['addPartHtmlCles'] = valeurPartHtmlCles;
 
 	var valeurInheritPk = $formulaireValeurs.find('.valeurInheritPk').val();
-	if(valeurInheritPk != null && valeurInheritPk !== '')
-	var removeInheritPk = $formulaireFiltres.find('.removeInheritPk').val() === 'true';
+	var removeInheritPk = $formulaireValeurs.find('.removeInheritPk').val() === 'true';
 	var setInheritPk = removeInheritPk ? null : $formulaireValeurs.find('.setInheritPk').val();
 	if(removeInheritPk || setInheritPk != null && setInheritPk !== '')
 		vals['setInheritPk'] = setInheritPk;
@@ -371,8 +362,7 @@ async function patchDesignPage($formulaireFiltres, $formulaireValeurs, pk, succe
 		vals['removeInheritPk'] = removeInheritPk;
 
 	var valeurSessionId = $formulaireValeurs.find('.valeurSessionId').val();
-	if(valeurSessionId != null && valeurSessionId !== '')
-	var removeSessionId = $formulaireFiltres.find('.removeSessionId').val() === 'true';
+	var removeSessionId = $formulaireValeurs.find('.removeSessionId').val() === 'true';
 	var setSessionId = removeSessionId ? null : $formulaireValeurs.find('.setSessionId').val();
 	if(removeSessionId || setSessionId != null && setSessionId !== '')
 		vals['setSessionId'] = setSessionId;
@@ -384,8 +374,7 @@ async function patchDesignPage($formulaireFiltres, $formulaireValeurs, pk, succe
 		vals['removeSessionId'] = removeSessionId;
 
 	var valeurUtilisateurId = $formulaireValeurs.find('.valeurUtilisateurId').val();
-	if(valeurUtilisateurId != null && valeurUtilisateurId !== '')
-	var removeUtilisateurId = $formulaireFiltres.find('.removeUtilisateurId').val() === 'true';
+	var removeUtilisateurId = $formulaireValeurs.find('.removeUtilisateurId').val() === 'true';
 	var setUtilisateurId = removeUtilisateurId ? null : $formulaireValeurs.find('.setUtilisateurId').val();
 	if(removeUtilisateurId || setUtilisateurId != null && setUtilisateurId !== '')
 		vals['setUtilisateurId'] = setUtilisateurId;
@@ -397,8 +386,7 @@ async function patchDesignPage($formulaireFiltres, $formulaireValeurs, pk, succe
 		vals['removeUtilisateurId'] = removeUtilisateurId;
 
 	var valeurUtilisateurCle = $formulaireValeurs.find('.valeurUtilisateurCle').val();
-	if(valeurUtilisateurCle != null && valeurUtilisateurCle !== '')
-	var removeUtilisateurCle = $formulaireFiltres.find('.removeUtilisateurCle').val() === 'true';
+	var removeUtilisateurCle = $formulaireValeurs.find('.removeUtilisateurCle').val() === 'true';
 	var setUtilisateurCle = removeUtilisateurCle ? null : $formulaireValeurs.find('.setUtilisateurCle').val();
 	if(removeUtilisateurCle || setUtilisateurCle != null && setUtilisateurCle !== '')
 		vals['setUtilisateurCle'] = setUtilisateurCle;
@@ -410,8 +398,7 @@ async function patchDesignPage($formulaireFiltres, $formulaireValeurs, pk, succe
 		vals['removeUtilisateurCle'] = removeUtilisateurCle;
 
 	var valeurObjetTitre = $formulaireValeurs.find('.valeurObjetTitre').val();
-	if(valeurObjetTitre != null && valeurObjetTitre !== '')
-	var removeObjetTitre = $formulaireFiltres.find('.removeObjetTitre').val() === 'true';
+	var removeObjetTitre = $formulaireValeurs.find('.removeObjetTitre').val() === 'true';
 	var setObjetTitre = removeObjetTitre ? null : $formulaireValeurs.find('.setObjetTitre').val();
 	if(removeObjetTitre || setObjetTitre != null && setObjetTitre !== '')
 		vals['setObjetTitre'] = setObjetTitre;
@@ -736,7 +723,6 @@ function rechercheDesignPageFiltres($formulaireFiltres) {
 
 function rechercheDesignPageVals(filtres, success, error) {
 
-	filtres.push({ name: 'rows', value: 100 });
 
 	filtres.push({ name: 'sort', value: 'designPageNomComplet asc' });
 	$.ajax({
@@ -1200,7 +1186,6 @@ function rechercheadminDesignPageFiltres($formulaireFiltres) {
 
 function rechercheadminDesignPageVals(filtres, success, error) {
 
-	filtres.push({ name: 'rows', value: 100 });
 
 	filtres.push({ name: 'sort', value: 'designPageNomComplet asc' });
 	$.ajax({
@@ -1524,6 +1509,7 @@ async function websocketDesignPage(success) {
 			var json = JSON.parse(message['body']);
 			var id = json['id'];
 			var pk = json['pk'];
+			var pkPage = $('#DesignPageForm :input[name=pk]').val();
 			var pks = json['pks'];
 			var empty = json['empty'];
 			var numFound = json['numFound'];
@@ -1550,9 +1536,11 @@ async function websocketDesignPage(success) {
 			$margin.append($card);
 			$('.box-' + id).remove();
 			if(numPATCH < numFound)
-				$('.top-box').append($box);
-			if(success)
+			$('.top-box').append($box);
+			if(pk && pkPage && pk == pkPage) {;
+				if(success)
 					success(json);
+			}
 		});
 
 		window.eventBus.registerHandler('websocketDesignPage', function (error, message) {
@@ -1608,6 +1596,18 @@ async function websocketDesignPageInner(requeteApi) {
 	if(pk != null) {
 		rechercherDesignPageVals([ {name: 'fq', value: 'pk:' + pk} ], function( data, textStatus, jQxhr ) {
 			var o = data['list'][0];
+			var val = o['pk'];
+			if(vars.includes('pk')) {
+				$('.inputDesignPage' + pk + 'Pk').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varDesignPage' + pk + 'Pk').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputDesignPage' + pk + 'Pk'));
+			}
 			var val = o['cree'];
 			if(vars.includes('cree')) {
 				$('.inputDesignPage' + pk + 'Cree').each(function() {
@@ -1631,6 +1631,18 @@ async function websocketDesignPageInner(requeteApi) {
 						$(this).text(val);
 				});
 				ajouterLueur($('.inputDesignPage' + pk + 'Modifie'));
+			}
+			var val = o['objetId'];
+			if(vars.includes('objetId')) {
+				$('.inputDesignPage' + pk + 'ObjetId').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varDesignPage' + pk + 'ObjetId').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputDesignPage' + pk + 'ObjetId'));
 			}
 			var val = o['archive'];
 			if(vars.includes('archive')) {
@@ -1716,6 +1728,54 @@ async function websocketDesignPageInner(requeteApi) {
 				});
 				ajouterLueur($('.inputDesignPage' + pk + 'InheritPk'));
 			}
+			var val = o['id'];
+			if(vars.includes('id')) {
+				$('.inputDesignPage' + pk + 'Id').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varDesignPage' + pk + 'Id').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputDesignPage' + pk + 'Id'));
+			}
+			var val = o['classeNomCanonique'];
+			if(vars.includes('classeNomCanonique')) {
+				$('.inputDesignPage' + pk + 'ClasseNomCanonique').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varDesignPage' + pk + 'ClasseNomCanonique').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputDesignPage' + pk + 'ClasseNomCanonique'));
+			}
+			var val = o['classeNomSimple'];
+			if(vars.includes('classeNomSimple')) {
+				$('.inputDesignPage' + pk + 'ClasseNomSimple').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varDesignPage' + pk + 'ClasseNomSimple').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputDesignPage' + pk + 'ClasseNomSimple'));
+			}
+			var val = o['classeNomsCanoniques'];
+			if(vars.includes('classeNomsCanoniques')) {
+				$('.inputDesignPage' + pk + 'ClasseNomsCanoniques').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varDesignPage' + pk + 'ClasseNomsCanoniques').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputDesignPage' + pk + 'ClasseNomsCanoniques'));
+			}
 			var val = o['sessionId'];
 			if(vars.includes('sessionId')) {
 				$('.inputDesignPage' + pk + 'SessionId').each(function() {
@@ -1751,6 +1811,102 @@ async function websocketDesignPageInner(requeteApi) {
 						$(this).text(val);
 				});
 				ajouterLueur($('.inputDesignPage' + pk + 'UtilisateurCle'));
+			}
+			var val = o['sauvegardes'];
+			if(vars.includes('sauvegardes')) {
+				$('.inputDesignPage' + pk + 'Sauvegardes').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varDesignPage' + pk + 'Sauvegardes').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputDesignPage' + pk + 'Sauvegardes'));
+			}
+			var val = o['objetTitre'];
+			if(vars.includes('objetTitre')) {
+				$('.inputDesignPage' + pk + 'ObjetTitre').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varDesignPage' + pk + 'ObjetTitre').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputDesignPage' + pk + 'ObjetTitre'));
+			}
+			var val = o['objetSuggere'];
+			if(vars.includes('objetSuggere')) {
+				$('.inputDesignPage' + pk + 'ObjetSuggere').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varDesignPage' + pk + 'ObjetSuggere').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputDesignPage' + pk + 'ObjetSuggere'));
+			}
+			var val = o['objetTexte'];
+			if(vars.includes('objetTexte')) {
+				$('.inputDesignPage' + pk + 'ObjetTexte').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varDesignPage' + pk + 'ObjetTexte').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputDesignPage' + pk + 'ObjetTexte'));
+			}
+			var val = o['pageUrlId'];
+			if(vars.includes('pageUrlId')) {
+				$('.inputDesignPage' + pk + 'PageUrlId').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varDesignPage' + pk + 'PageUrlId').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputDesignPage' + pk + 'PageUrlId'));
+			}
+			var val = o['pageUrlPk'];
+			if(vars.includes('pageUrlPk')) {
+				$('.inputDesignPage' + pk + 'PageUrlPk').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varDesignPage' + pk + 'PageUrlPk').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputDesignPage' + pk + 'PageUrlPk'));
+			}
+			var val = o['pageUrlApi'];
+			if(vars.includes('pageUrlApi')) {
+				$('.inputDesignPage' + pk + 'PageUrlApi').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varDesignPage' + pk + 'PageUrlApi').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputDesignPage' + pk + 'PageUrlApi'));
+			}
+			var val = o['designPageCle'];
+			if(vars.includes('designPageCle')) {
+				$('.inputDesignPage' + pk + 'DesignPageCle').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varDesignPage' + pk + 'DesignPageCle').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputDesignPage' + pk + 'DesignPageCle'));
 			}
 			var val = o['designEnfantCles'];
 			if(vars.includes('designEnfantCles')) {

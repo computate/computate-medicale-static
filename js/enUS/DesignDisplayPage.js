@@ -234,8 +234,7 @@ async function patchPageDesign($formFilters, $formValues, pk, success, error) {
 	var vals = {};
 
 	var valuePk = $formValues.find('.valuePk').val();
-	if(valuePk != null && valuePk !== '')
-	var removePk = $formFilters.find('.removePk').val() === 'true';
+	var removePk = $formValues.find('.removePk').val() === 'true';
 	var setPk = removePk ? null : $formValues.find('.setPk').val();
 	if(removePk || setPk != null && setPk !== '')
 		vals['setPk'] = setPk;
@@ -247,8 +246,7 @@ async function patchPageDesign($formFilters, $formValues, pk, success, error) {
 		vals['removePk'] = removePk;
 
 	var valueCreated = $formValues.find('.valueCreated').val();
-	if(valueCreated != null && valueCreated !== '')
-	var removeCreated = $formFilters.find('.removeCreated').val() === 'true';
+	var removeCreated = $formValues.find('.removeCreated').val() === 'true';
 	var setCreated = removeCreated ? null : $formValues.find('.setCreated').val();
 	if(removeCreated || setCreated != null && setCreated !== '')
 		vals['setCreated'] = setCreated;
@@ -260,8 +258,7 @@ async function patchPageDesign($formFilters, $formValues, pk, success, error) {
 		vals['removeCreated'] = removeCreated;
 
 	var valueModified = $formValues.find('.valueModified').val();
-	if(valueModified != null && valueModified !== '')
-	var removeModified = $formFilters.find('.removeModified').val() === 'true';
+	var removeModified = $formValues.find('.removeModified').val() === 'true';
 	var setModified = removeModified ? null : $formValues.find('.setModified').val();
 	if(removeModified || setModified != null && setModified !== '')
 		vals['setModified'] = setModified;
@@ -273,8 +270,7 @@ async function patchPageDesign($formFilters, $formValues, pk, success, error) {
 		vals['removeModified'] = removeModified;
 
 	var valueObjectId = $formValues.find('.valueObjectId').val();
-	if(valueObjectId != null && valueObjectId !== '')
-	var removeObjectId = $formFilters.find('.removeObjectId').val() === 'true';
+	var removeObjectId = $formValues.find('.removeObjectId').val() === 'true';
 	var setObjectId = removeObjectId ? null : $formValues.find('.setObjectId').val();
 	if(removeObjectId || setObjectId != null && setObjectId !== '')
 		vals['setObjectId'] = setObjectId;
@@ -286,11 +282,10 @@ async function patchPageDesign($formFilters, $formValues, pk, success, error) {
 		vals['removeObjectId'] = removeObjectId;
 
 	var valueArchived = $formValues.find('.valueArchived').prop('checked');
-	if(valueArchived != null && valueArchived !== '')
-	var removeArchived = $formFilters.find('.removeArchived').val() === 'true';
+	var removeArchived = $formValues.find('.removeArchived').val() === 'true';
 	var valueArchivedSelectVal = $formValues.find('select.setArchived').val();
 	var valueArchived = null;
-	if(valueArchivedSelectVal !== '')
+	if(valueArchivedSelectVal != null && valueArchivedSelectVal !== '')
 		valueArchived = valueArchivedSelectVal == 'true';
 	setArchived = removeArchived ? null : valueArchived;
 	if(removeArchived || setArchived != null && setArchived !== '')
@@ -303,11 +298,10 @@ async function patchPageDesign($formFilters, $formValues, pk, success, error) {
 		vals['removeArchived'] = removeArchived;
 
 	var valueDeleted = $formValues.find('.valueDeleted').prop('checked');
-	if(valueDeleted != null && valueDeleted !== '')
-	var removeDeleted = $formFilters.find('.removeDeleted').val() === 'true';
+	var removeDeleted = $formValues.find('.removeDeleted').val() === 'true';
 	var valueDeletedSelectVal = $formValues.find('select.setDeleted').val();
 	var valueDeleted = null;
-	if(valueDeletedSelectVal !== '')
+	if(valueDeletedSelectVal != null && valueDeletedSelectVal !== '')
 		valueDeleted = valueDeletedSelectVal == 'true';
 	setDeleted = removeDeleted ? null : valueDeleted;
 	if(removeDeleted || setDeleted != null && setDeleted !== '')
@@ -320,8 +314,7 @@ async function patchPageDesign($formFilters, $formValues, pk, success, error) {
 		vals['removeDeleted'] = removeDeleted;
 
 	var valuePageDesignCompleteName = $formValues.find('.valuePageDesignCompleteName').val();
-	if(valuePageDesignCompleteName != null && valuePageDesignCompleteName !== '')
-	var removePageDesignCompleteName = $formFilters.find('.removePageDesignCompleteName').val() === 'true';
+	var removePageDesignCompleteName = $formValues.find('.removePageDesignCompleteName').val() === 'true';
 	var setPageDesignCompleteName = removePageDesignCompleteName ? null : $formValues.find('.setPageDesignCompleteName').val();
 	if(removePageDesignCompleteName || setPageDesignCompleteName != null && setPageDesignCompleteName !== '')
 		vals['setPageDesignCompleteName'] = setPageDesignCompleteName;
@@ -333,11 +326,10 @@ async function patchPageDesign($formFilters, $formValues, pk, success, error) {
 		vals['removePageDesignCompleteName'] = removePageDesignCompleteName;
 
 	var valueDesignHidden = $formValues.find('.valueDesignHidden').prop('checked');
-	if(valueDesignHidden != null && valueDesignHidden !== '')
-	var removeDesignHidden = $formFilters.find('.removeDesignHidden').val() === 'true';
+	var removeDesignHidden = $formValues.find('.removeDesignHidden').val() === 'true';
 	var valueDesignHiddenSelectVal = $formValues.find('select.setDesignHidden').val();
 	var valueDesignHidden = null;
-	if(valueDesignHiddenSelectVal !== '')
+	if(valueDesignHiddenSelectVal != null && valueDesignHiddenSelectVal !== '')
 		valueDesignHidden = valueDesignHiddenSelectVal == 'true';
 	setDesignHidden = removeDesignHidden ? null : valueDesignHidden;
 	if(removeDesignHidden || setDesignHidden != null && setDesignHidden !== '')
@@ -358,8 +350,7 @@ async function patchPageDesign($formFilters, $formValues, pk, success, error) {
 		vals['addHtmlPartKeys'] = valueHtmlPartKeys;
 
 	var valueInheritPk = $formValues.find('.valueInheritPk').val();
-	if(valueInheritPk != null && valueInheritPk !== '')
-	var removeInheritPk = $formFilters.find('.removeInheritPk').val() === 'true';
+	var removeInheritPk = $formValues.find('.removeInheritPk').val() === 'true';
 	var setInheritPk = removeInheritPk ? null : $formValues.find('.setInheritPk').val();
 	if(removeInheritPk || setInheritPk != null && setInheritPk !== '')
 		vals['setInheritPk'] = setInheritPk;
@@ -371,8 +362,7 @@ async function patchPageDesign($formFilters, $formValues, pk, success, error) {
 		vals['removeInheritPk'] = removeInheritPk;
 
 	var valueSessionId = $formValues.find('.valueSessionId').val();
-	if(valueSessionId != null && valueSessionId !== '')
-	var removeSessionId = $formFilters.find('.removeSessionId').val() === 'true';
+	var removeSessionId = $formValues.find('.removeSessionId').val() === 'true';
 	var setSessionId = removeSessionId ? null : $formValues.find('.setSessionId').val();
 	if(removeSessionId || setSessionId != null && setSessionId !== '')
 		vals['setSessionId'] = setSessionId;
@@ -384,8 +374,7 @@ async function patchPageDesign($formFilters, $formValues, pk, success, error) {
 		vals['removeSessionId'] = removeSessionId;
 
 	var valueUserId = $formValues.find('.valueUserId').val();
-	if(valueUserId != null && valueUserId !== '')
-	var removeUserId = $formFilters.find('.removeUserId').val() === 'true';
+	var removeUserId = $formValues.find('.removeUserId').val() === 'true';
 	var setUserId = removeUserId ? null : $formValues.find('.setUserId').val();
 	if(removeUserId || setUserId != null && setUserId !== '')
 		vals['setUserId'] = setUserId;
@@ -397,8 +386,7 @@ async function patchPageDesign($formFilters, $formValues, pk, success, error) {
 		vals['removeUserId'] = removeUserId;
 
 	var valueUserKey = $formValues.find('.valueUserKey').val();
-	if(valueUserKey != null && valueUserKey !== '')
-	var removeUserKey = $formFilters.find('.removeUserKey').val() === 'true';
+	var removeUserKey = $formValues.find('.removeUserKey').val() === 'true';
 	var setUserKey = removeUserKey ? null : $formValues.find('.setUserKey').val();
 	if(removeUserKey || setUserKey != null && setUserKey !== '')
 		vals['setUserKey'] = setUserKey;
@@ -410,8 +398,7 @@ async function patchPageDesign($formFilters, $formValues, pk, success, error) {
 		vals['removeUserKey'] = removeUserKey;
 
 	var valueObjectTitle = $formValues.find('.valueObjectTitle').val();
-	if(valueObjectTitle != null && valueObjectTitle !== '')
-	var removeObjectTitle = $formFilters.find('.removeObjectTitle').val() === 'true';
+	var removeObjectTitle = $formValues.find('.removeObjectTitle').val() === 'true';
 	var setObjectTitle = removeObjectTitle ? null : $formValues.find('.setObjectTitle').val();
 	if(removeObjectTitle || setObjectTitle != null && setObjectTitle !== '')
 		vals['setObjectTitle'] = setObjectTitle;
@@ -736,7 +723,6 @@ function searchPageDesignFilters($formFilters) {
 
 function searchPageDesignVals(filters, success, error) {
 
-	filters.push({ name: 'rows', value: 100 });
 
 	filters.push({ name: 'sort', value: 'pageDesignCompleteName asc' });
 	$.ajax({
@@ -1200,7 +1186,6 @@ function adminsearchPageDesignFilters($formFilters) {
 
 function adminsearchPageDesignVals(filters, success, error) {
 
-	filters.push({ name: 'rows', value: 100 });
 
 	filters.push({ name: 'sort', value: 'pageDesignCompleteName asc' });
 	$.ajax({
@@ -1524,6 +1509,7 @@ async function websocketPageDesign(success) {
 			var json = JSON.parse(message['body']);
 			var id = json['id'];
 			var pk = json['pk'];
+			var pkPage = $('#PageDesignForm :input[name=pk]').val();
 			var pks = json['pks'];
 			var empty = json['empty'];
 			var numFound = json['numFound'];
@@ -1550,9 +1536,11 @@ async function websocketPageDesign(success) {
 			$margin.append($card);
 			$('.box-' + id).remove();
 			if(numPATCH < numFound)
-				$('.top-box').append($box);
-			if(success)
+			$('.top-box').append($box);
+			if(pk && pkPage && pk == pkPage) {;
+				if(success)
 					success(json);
+			}
 		});
 
 		window.eventBus.registerHandler('websocketPageDesign', function (error, message) {
@@ -1608,6 +1596,18 @@ async function websocketPageDesignInner(apiRequest) {
 	if(pk != null) {
 		searchPageDesignVals([ {name: 'fq', value: 'pk:' + pk} ], function( data, textStatus, jQxhr ) {
 			var o = data['list'][0];
+			var val = o['pk'];
+			if(vars.includes('pk')) {
+				$('.inputPageDesign' + pk + 'Pk').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varPageDesign' + pk + 'Pk').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				addGlow($('.inputPageDesign' + pk + 'Pk'));
+			}
 			var val = o['created'];
 			if(vars.includes('created')) {
 				$('.inputPageDesign' + pk + 'Created').each(function() {
@@ -1631,6 +1631,18 @@ async function websocketPageDesignInner(apiRequest) {
 						$(this).text(val);
 				});
 				addGlow($('.inputPageDesign' + pk + 'Modified'));
+			}
+			var val = o['objectId'];
+			if(vars.includes('objectId')) {
+				$('.inputPageDesign' + pk + 'ObjectId').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varPageDesign' + pk + 'ObjectId').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				addGlow($('.inputPageDesign' + pk + 'ObjectId'));
 			}
 			var val = o['archived'];
 			if(vars.includes('archived')) {
@@ -1716,6 +1728,54 @@ async function websocketPageDesignInner(apiRequest) {
 				});
 				addGlow($('.inputPageDesign' + pk + 'InheritPk'));
 			}
+			var val = o['id'];
+			if(vars.includes('id')) {
+				$('.inputPageDesign' + pk + 'Id').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varPageDesign' + pk + 'Id').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				addGlow($('.inputPageDesign' + pk + 'Id'));
+			}
+			var val = o['classCanonicalName'];
+			if(vars.includes('classCanonicalName')) {
+				$('.inputPageDesign' + pk + 'ClassCanonicalName').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varPageDesign' + pk + 'ClassCanonicalName').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				addGlow($('.inputPageDesign' + pk + 'ClassCanonicalName'));
+			}
+			var val = o['classSimpleName'];
+			if(vars.includes('classSimpleName')) {
+				$('.inputPageDesign' + pk + 'ClassSimpleName').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varPageDesign' + pk + 'ClassSimpleName').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				addGlow($('.inputPageDesign' + pk + 'ClassSimpleName'));
+			}
+			var val = o['classCanonicalNames'];
+			if(vars.includes('classCanonicalNames')) {
+				$('.inputPageDesign' + pk + 'ClassCanonicalNames').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varPageDesign' + pk + 'ClassCanonicalNames').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				addGlow($('.inputPageDesign' + pk + 'ClassCanonicalNames'));
+			}
 			var val = o['sessionId'];
 			if(vars.includes('sessionId')) {
 				$('.inputPageDesign' + pk + 'SessionId').each(function() {
@@ -1751,6 +1811,102 @@ async function websocketPageDesignInner(apiRequest) {
 						$(this).text(val);
 				});
 				addGlow($('.inputPageDesign' + pk + 'UserKey'));
+			}
+			var val = o['saves'];
+			if(vars.includes('saves')) {
+				$('.inputPageDesign' + pk + 'Saves').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varPageDesign' + pk + 'Saves').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				addGlow($('.inputPageDesign' + pk + 'Saves'));
+			}
+			var val = o['objectTitle'];
+			if(vars.includes('objectTitle')) {
+				$('.inputPageDesign' + pk + 'ObjectTitle').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varPageDesign' + pk + 'ObjectTitle').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				addGlow($('.inputPageDesign' + pk + 'ObjectTitle'));
+			}
+			var val = o['objectSuggest'];
+			if(vars.includes('objectSuggest')) {
+				$('.inputPageDesign' + pk + 'ObjectSuggest').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varPageDesign' + pk + 'ObjectSuggest').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				addGlow($('.inputPageDesign' + pk + 'ObjectSuggest'));
+			}
+			var val = o['objectText'];
+			if(vars.includes('objectText')) {
+				$('.inputPageDesign' + pk + 'ObjectText').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varPageDesign' + pk + 'ObjectText').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				addGlow($('.inputPageDesign' + pk + 'ObjectText'));
+			}
+			var val = o['pageUrlId'];
+			if(vars.includes('pageUrlId')) {
+				$('.inputPageDesign' + pk + 'PageUrlId').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varPageDesign' + pk + 'PageUrlId').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				addGlow($('.inputPageDesign' + pk + 'PageUrlId'));
+			}
+			var val = o['pageUrlPk'];
+			if(vars.includes('pageUrlPk')) {
+				$('.inputPageDesign' + pk + 'PageUrlPk').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varPageDesign' + pk + 'PageUrlPk').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				addGlow($('.inputPageDesign' + pk + 'PageUrlPk'));
+			}
+			var val = o['pageUrlApi'];
+			if(vars.includes('pageUrlApi')) {
+				$('.inputPageDesign' + pk + 'PageUrlApi').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varPageDesign' + pk + 'PageUrlApi').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				addGlow($('.inputPageDesign' + pk + 'PageUrlApi'));
+			}
+			var val = o['pageDesignKey'];
+			if(vars.includes('pageDesignKey')) {
+				$('.inputPageDesign' + pk + 'PageDesignKey').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varPageDesign' + pk + 'PageDesignKey').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				addGlow($('.inputPageDesign' + pk + 'PageDesignKey'));
 			}
 			var val = o['childDesignKeys'];
 			if(vars.includes('childDesignKeys')) {

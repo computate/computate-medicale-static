@@ -196,8 +196,7 @@ async function patchCluster($formulaireFiltres, $formulaireValeurs, pk, success,
 	var vals = {};
 
 	var valeurPk = $formulaireValeurs.find('.valeurPk').val();
-	if(valeurPk != null && valeurPk !== '')
-	var removePk = $formulaireFiltres.find('.removePk').val() === 'true';
+	var removePk = $formulaireValeurs.find('.removePk').val() === 'true';
 	var setPk = removePk ? null : $formulaireValeurs.find('.setPk').val();
 	if(removePk || setPk != null && setPk !== '')
 		vals['setPk'] = setPk;
@@ -209,8 +208,7 @@ async function patchCluster($formulaireFiltres, $formulaireValeurs, pk, success,
 		vals['removePk'] = removePk;
 
 	var valeurCree = $formulaireValeurs.find('.valeurCree').val();
-	if(valeurCree != null && valeurCree !== '')
-	var removeCree = $formulaireFiltres.find('.removeCree').val() === 'true';
+	var removeCree = $formulaireValeurs.find('.removeCree').val() === 'true';
 	var setCree = removeCree ? null : $formulaireValeurs.find('.setCree').val();
 	if(removeCree || setCree != null && setCree !== '')
 		vals['setCree'] = setCree;
@@ -222,8 +220,7 @@ async function patchCluster($formulaireFiltres, $formulaireValeurs, pk, success,
 		vals['removeCree'] = removeCree;
 
 	var valeurModifie = $formulaireValeurs.find('.valeurModifie').val();
-	if(valeurModifie != null && valeurModifie !== '')
-	var removeModifie = $formulaireFiltres.find('.removeModifie').val() === 'true';
+	var removeModifie = $formulaireValeurs.find('.removeModifie').val() === 'true';
 	var setModifie = removeModifie ? null : $formulaireValeurs.find('.setModifie').val();
 	if(removeModifie || setModifie != null && setModifie !== '')
 		vals['setModifie'] = setModifie;
@@ -235,8 +232,7 @@ async function patchCluster($formulaireFiltres, $formulaireValeurs, pk, success,
 		vals['removeModifie'] = removeModifie;
 
 	var valeurObjetId = $formulaireValeurs.find('.valeurObjetId').val();
-	if(valeurObjetId != null && valeurObjetId !== '')
-	var removeObjetId = $formulaireFiltres.find('.removeObjetId').val() === 'true';
+	var removeObjetId = $formulaireValeurs.find('.removeObjetId').val() === 'true';
 	var setObjetId = removeObjetId ? null : $formulaireValeurs.find('.setObjetId').val();
 	if(removeObjetId || setObjetId != null && setObjetId !== '')
 		vals['setObjetId'] = setObjetId;
@@ -248,11 +244,10 @@ async function patchCluster($formulaireFiltres, $formulaireValeurs, pk, success,
 		vals['removeObjetId'] = removeObjetId;
 
 	var valeurArchive = $formulaireValeurs.find('.valeurArchive').prop('checked');
-	if(valeurArchive != null && valeurArchive !== '')
-	var removeArchive = $formulaireFiltres.find('.removeArchive').val() === 'true';
+	var removeArchive = $formulaireValeurs.find('.removeArchive').val() === 'true';
 	var valeurArchiveSelectVal = $formulaireValeurs.find('select.setArchive').val();
 	var valeurArchive = null;
-	if(valeurArchiveSelectVal !== '')
+	if(valeurArchiveSelectVal != null && valeurArchiveSelectVal !== '')
 		valeurArchive = valeurArchiveSelectVal == 'true';
 	setArchive = removeArchive ? null : valeurArchive;
 	if(removeArchive || setArchive != null && setArchive !== '')
@@ -265,11 +260,10 @@ async function patchCluster($formulaireFiltres, $formulaireValeurs, pk, success,
 		vals['removeArchive'] = removeArchive;
 
 	var valeurSupprime = $formulaireValeurs.find('.valeurSupprime').prop('checked');
-	if(valeurSupprime != null && valeurSupprime !== '')
-	var removeSupprime = $formulaireFiltres.find('.removeSupprime').val() === 'true';
+	var removeSupprime = $formulaireValeurs.find('.removeSupprime').val() === 'true';
 	var valeurSupprimeSelectVal = $formulaireValeurs.find('select.setSupprime').val();
 	var valeurSupprime = null;
-	if(valeurSupprimeSelectVal !== '')
+	if(valeurSupprimeSelectVal != null && valeurSupprimeSelectVal !== '')
 		valeurSupprime = valeurSupprimeSelectVal == 'true';
 	setSupprime = removeSupprime ? null : valeurSupprime;
 	if(removeSupprime || setSupprime != null && setSupprime !== '')
@@ -282,8 +276,7 @@ async function patchCluster($formulaireFiltres, $formulaireValeurs, pk, success,
 		vals['removeSupprime'] = removeSupprime;
 
 	var valeurInheritPk = $formulaireValeurs.find('.valeurInheritPk').val();
-	if(valeurInheritPk != null && valeurInheritPk !== '')
-	var removeInheritPk = $formulaireFiltres.find('.removeInheritPk').val() === 'true';
+	var removeInheritPk = $formulaireValeurs.find('.removeInheritPk').val() === 'true';
 	var setInheritPk = removeInheritPk ? null : $formulaireValeurs.find('.setInheritPk').val();
 	if(removeInheritPk || setInheritPk != null && setInheritPk !== '')
 		vals['setInheritPk'] = setInheritPk;
@@ -295,8 +288,7 @@ async function patchCluster($formulaireFiltres, $formulaireValeurs, pk, success,
 		vals['removeInheritPk'] = removeInheritPk;
 
 	var valeurSessionId = $formulaireValeurs.find('.valeurSessionId').val();
-	if(valeurSessionId != null && valeurSessionId !== '')
-	var removeSessionId = $formulaireFiltres.find('.removeSessionId').val() === 'true';
+	var removeSessionId = $formulaireValeurs.find('.removeSessionId').val() === 'true';
 	var setSessionId = removeSessionId ? null : $formulaireValeurs.find('.setSessionId').val();
 	if(removeSessionId || setSessionId != null && setSessionId !== '')
 		vals['setSessionId'] = setSessionId;
@@ -308,8 +300,7 @@ async function patchCluster($formulaireFiltres, $formulaireValeurs, pk, success,
 		vals['removeSessionId'] = removeSessionId;
 
 	var valeurUtilisateurId = $formulaireValeurs.find('.valeurUtilisateurId').val();
-	if(valeurUtilisateurId != null && valeurUtilisateurId !== '')
-	var removeUtilisateurId = $formulaireFiltres.find('.removeUtilisateurId').val() === 'true';
+	var removeUtilisateurId = $formulaireValeurs.find('.removeUtilisateurId').val() === 'true';
 	var setUtilisateurId = removeUtilisateurId ? null : $formulaireValeurs.find('.setUtilisateurId').val();
 	if(removeUtilisateurId || setUtilisateurId != null && setUtilisateurId !== '')
 		vals['setUtilisateurId'] = setUtilisateurId;
@@ -321,8 +312,7 @@ async function patchCluster($formulaireFiltres, $formulaireValeurs, pk, success,
 		vals['removeUtilisateurId'] = removeUtilisateurId;
 
 	var valeurUtilisateurCle = $formulaireValeurs.find('.valeurUtilisateurCle').val();
-	if(valeurUtilisateurCle != null && valeurUtilisateurCle !== '')
-	var removeUtilisateurCle = $formulaireFiltres.find('.removeUtilisateurCle').val() === 'true';
+	var removeUtilisateurCle = $formulaireValeurs.find('.removeUtilisateurCle').val() === 'true';
 	var setUtilisateurCle = removeUtilisateurCle ? null : $formulaireValeurs.find('.setUtilisateurCle').val();
 	if(removeUtilisateurCle || setUtilisateurCle != null && setUtilisateurCle !== '')
 		vals['setUtilisateurCle'] = setUtilisateurCle;
@@ -334,8 +324,7 @@ async function patchCluster($formulaireFiltres, $formulaireValeurs, pk, success,
 		vals['removeUtilisateurCle'] = removeUtilisateurCle;
 
 	var valeurObjetTitre = $formulaireValeurs.find('.valeurObjetTitre').val();
-	if(valeurObjetTitre != null && valeurObjetTitre !== '')
-	var removeObjetTitre = $formulaireFiltres.find('.removeObjetTitre').val() === 'true';
+	var removeObjetTitre = $formulaireValeurs.find('.removeObjetTitre').val() === 'true';
 	var setObjetTitre = removeObjetTitre ? null : $formulaireValeurs.find('.setObjetTitre').val();
 	if(removeObjetTitre || setObjetTitre != null && setObjetTitre !== '')
 		vals['setObjetTitre'] = setObjetTitre;
@@ -634,6 +623,7 @@ async function websocketCluster(success) {
 			var json = JSON.parse(message['body']);
 			var id = json['id'];
 			var pk = json['pk'];
+			var pkPage = $('#ClusterForm :input[name=pk]').val();
 			var pks = json['pks'];
 			var empty = json['empty'];
 			var numFound = json['numFound'];
@@ -660,9 +650,11 @@ async function websocketCluster(success) {
 			$margin.append($card);
 			$('.box-' + id).remove();
 			if(numPATCH < numFound)
-				$('.top-box').append($box);
-			if(success)
+			$('.top-box').append($box);
+			if(pk && pkPage && pk == pkPage) {;
+				if(success)
 					success(json);
+			}
 		});
 	}
 }
@@ -676,6 +668,18 @@ async function websocketClusterInner(requeteApi) {
 	if(pk != null) {
 		rechercherClusterVals([ {name: 'fq', value: 'pk:' + pk} ], function( data, textStatus, jQxhr ) {
 			var o = data['list'][0];
+			var val = o['pk'];
+			if(vars.includes('pk')) {
+				$('.inputCluster' + pk + 'Pk').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varCluster' + pk + 'Pk').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputCluster' + pk + 'Pk'));
+			}
 			var val = o['cree'];
 			if(vars.includes('cree')) {
 				$('.inputCluster' + pk + 'Cree').each(function() {
@@ -699,6 +703,18 @@ async function websocketClusterInner(requeteApi) {
 						$(this).text(val);
 				});
 				ajouterLueur($('.inputCluster' + pk + 'Modifie'));
+			}
+			var val = o['objetId'];
+			if(vars.includes('objetId')) {
+				$('.inputCluster' + pk + 'ObjetId').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varCluster' + pk + 'ObjetId').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputCluster' + pk + 'ObjetId'));
 			}
 			var val = o['archive'];
 			if(vars.includes('archive')) {
@@ -736,6 +752,54 @@ async function websocketClusterInner(requeteApi) {
 				});
 				ajouterLueur($('.inputCluster' + pk + 'InheritPk'));
 			}
+			var val = o['id'];
+			if(vars.includes('id')) {
+				$('.inputCluster' + pk + 'Id').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varCluster' + pk + 'Id').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputCluster' + pk + 'Id'));
+			}
+			var val = o['classeNomCanonique'];
+			if(vars.includes('classeNomCanonique')) {
+				$('.inputCluster' + pk + 'ClasseNomCanonique').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varCluster' + pk + 'ClasseNomCanonique').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputCluster' + pk + 'ClasseNomCanonique'));
+			}
+			var val = o['classeNomSimple'];
+			if(vars.includes('classeNomSimple')) {
+				$('.inputCluster' + pk + 'ClasseNomSimple').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varCluster' + pk + 'ClasseNomSimple').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputCluster' + pk + 'ClasseNomSimple'));
+			}
+			var val = o['classeNomsCanoniques'];
+			if(vars.includes('classeNomsCanoniques')) {
+				$('.inputCluster' + pk + 'ClasseNomsCanoniques').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varCluster' + pk + 'ClasseNomsCanoniques').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputCluster' + pk + 'ClasseNomsCanoniques'));
+			}
 			var val = o['sessionId'];
 			if(vars.includes('sessionId')) {
 				$('.inputCluster' + pk + 'SessionId').each(function() {
@@ -771,6 +835,90 @@ async function websocketClusterInner(requeteApi) {
 						$(this).text(val);
 				});
 				ajouterLueur($('.inputCluster' + pk + 'UtilisateurCle'));
+			}
+			var val = o['sauvegardes'];
+			if(vars.includes('sauvegardes')) {
+				$('.inputCluster' + pk + 'Sauvegardes').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varCluster' + pk + 'Sauvegardes').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputCluster' + pk + 'Sauvegardes'));
+			}
+			var val = o['objetTitre'];
+			if(vars.includes('objetTitre')) {
+				$('.inputCluster' + pk + 'ObjetTitre').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varCluster' + pk + 'ObjetTitre').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputCluster' + pk + 'ObjetTitre'));
+			}
+			var val = o['objetSuggere'];
+			if(vars.includes('objetSuggere')) {
+				$('.inputCluster' + pk + 'ObjetSuggere').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varCluster' + pk + 'ObjetSuggere').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputCluster' + pk + 'ObjetSuggere'));
+			}
+			var val = o['objetTexte'];
+			if(vars.includes('objetTexte')) {
+				$('.inputCluster' + pk + 'ObjetTexte').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varCluster' + pk + 'ObjetTexte').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputCluster' + pk + 'ObjetTexte'));
+			}
+			var val = o['pageUrlId'];
+			if(vars.includes('pageUrlId')) {
+				$('.inputCluster' + pk + 'PageUrlId').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varCluster' + pk + 'PageUrlId').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputCluster' + pk + 'PageUrlId'));
+			}
+			var val = o['pageUrlPk'];
+			if(vars.includes('pageUrlPk')) {
+				$('.inputCluster' + pk + 'PageUrlPk').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varCluster' + pk + 'PageUrlPk').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputCluster' + pk + 'PageUrlPk'));
+			}
+			var val = o['pageUrlApi'];
+			if(vars.includes('pageUrlApi')) {
+				$('.inputCluster' + pk + 'PageUrlApi').each(function() {
+					if(val !== $(this).val())
+						$(this).val(val);
+				});
+				$('.varCluster' + pk + 'PageUrlApi').each(function() {
+					if(val !== $(this).text())
+						$(this).text(val);
+				});
+				ajouterLueur($('.inputCluster' + pk + 'PageUrlApi'));
 			}
 		});
 	}
